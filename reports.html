@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Analytics | AI-Travel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="Logo">
+                <span class="logo-text">AI-Travel</span>
+            </a>
+            
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="reports.html" class="active">Reports</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+                <!-- Live Clock Display -->
+                <li style="color: var(--text-muted); font-size: 0.85rem; padding: 8px 12px; display: flex; align-items: center;" id="datetime-display"></li>
+                
+                <!-- Theme Switcher -->
+                <li>
+                    <button class="theme-switch-btn" id="theme-toggle" title="Switch Theme">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </li>
+                
+                <!-- Notification Bell -->
+                <li class="notification-container">
+                    <button class="nav-notification-bell" id="notification-bell" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="nav-notification-badge">3</span>
+                    </button>
+                    <div class="notification-panel" id="notification-panel">
+                        <div class="notification-header">
+                            <h4>Notifications</h4>
+                            <span style="font-size: 0.75rem; color: var(--primary); cursor: pointer;">Mark all read</span>
+                        </div>
+                        <ul class="notification-list">
+                            <li>
+                                <p><strong>New Feature!</strong> AI route planning now optimized.</p>
+                                <span>2 hours ago</span>
+                            </li>
+                            <li>
+                                <p><strong>Weather Alert</strong> Rain forecast in Kyoto itinerary.</p>
+                                <span>5 hours ago</span>
+                            </li>
+                            <li>
+                                <p><strong>System Update</strong> Q2 reports are now accessible.</p>
+                                <span>1 day ago</span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                
+                <li><a href="register.html" class="btn btn-primary" style="color: white; padding: 8px 16px;">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container" style="padding-top: 150px; padding-bottom: 100px;">
+        <div style="text-align: center; margin-bottom: 60px;" class="fade-in">
+            <h1 style="font-size: 3rem; margin-bottom: 20px;">System Reports & Analytics</h1>
+            <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto;">Comprehensive data insights and performance metrics of the platform.</p>
+        </div>
+
+        <!-- Travel Statistics with JS Animated counter -->
+        <div class="stat-grid fade-in delay-1">
+            <div class="stat-card">
+                <h3>Total Bookings</h3>
+                <p class="value"><span class="animate-counter" data-target="45678">0</span></p>
+                <p style="font-size: 0.8rem; color: var(--success);"><i class="fas fa-chevron-up"></i> +9% average</p>
+            </div>
+            <div class="stat-card">
+                <h3>Success Rate</h3>
+                <p class="value"><span class="animate-counter" data-target="99.2" data-float="true" data-suffix="%">0</span></p>
+                <p style="font-size: 0.8rem; color: var(--success);"><i class="fas fa-check-circle"></i> Industry Leading</p>
+            </div>
+            <div class="stat-card">
+                <h3>Avg. Savings</h3>
+                <p class="value">₹<span class="animate-counter" data-target="240">0</span>/Trip</p>
+                <p style="font-size: 0.8rem; color: var(--success);"><i class="fas fa-percent"></i> Budget optimized</p>
+            </div>
+            <div class="stat-card">
+                <h3>User Retention</h3>
+                <p class="value"><span class="animate-counter" data-target="88" data-suffix="%">0</span></p>
+                <p style="font-size: 0.8rem; color: var(--success);"><i class="fas fa-smile"></i> High satisfaction</p>
+            </div>
+        </div>
+
+        <!-- Destination Analytics Table Section -->
+        <section class="slide-in-up delay-2" style="padding: 40px 0;">
+            <h2 style="margin-bottom: 20px; display: inline-flex; align-items: center; gap: 10px;">
+                <i class="fas fa-globe" style="color: var(--primary);"></i> Trending Destinations Index
+            </h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Destination</th>
+                            <th>Growth Index</th>
+                            <th>Popularity</th>
+                            <th>Avg. Duration</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Paris, France</td>
+                            <td>+15%</td>
+                            <td>High</td>
+                            <td>4-6 Days</td>
+                            <td><span style="color: var(--success); font-weight: 600;">Trending</span></td>
+                        </tr>
+                        <tr>
+                            <td>Tokyo, Japan</td>
+                            <td>+22%</td>
+                            <td>Very High</td>
+                            <td>7-10 Days</td>
+                            <td><span style="color: var(--success); font-weight: 600;">Trending</span></td>
+                        </tr>
+                        <tr>
+                            <td>Bali, Indonesia</td>
+                            <td>-5%</td>
+                            <td>Medium</td>
+                            <td>5-7 Days</td>
+                            <td><span style="color: var(--warning); font-weight: 600;">Stable</span></td>
+                        </tr>
+                        <tr>
+                            <td>New York, USA</td>
+                            <td>+8%</td>
+                            <td>High</td>
+                            <td>3-5 Days</td>
+                            <td><span style="color: var(--success); font-weight: 600;">Growing</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Revenue & Booking Reports -->
+        <div class="card-grid slide-in-up delay-3" style="margin-top: 40px;">
+            <div class="card">
+                <h3 style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-coins" style="color: var(--primary);"></i> Revenue Summary (Q2)</h3>
+                <div style="margin-top: 20px;">
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+                        <span>Total Revenue</span>
+                        <strong style="color: var(--success);">₹1,240,500</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+                        <span>Operational Costs</span>
+                        <strong style="color: var(--error);">₹450,200</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0;">
+                        <span>Net Profit</span>
+                        <strong style="color: var(--primary);">₹790,300</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-users-cog" style="color: var(--secondary);"></i> Activity Summary</h3>
+                <div style="margin-top: 20px;">
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+                        <span>Daily Active Users</span>
+                        <strong>4,500+</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+                        <span>Itineraries Created</span>
+                        <strong>12,000+</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0;">
+                        <span>User Feedback Rating</span>
+                        <strong style="color: var(--warning);">4.8 / 5.0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top-btn" id="scroll-top-btn" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2026 AI-Based Travel Itinerary Generator | Designed by Dharshini</p>
+            <div class="footer-social-links">
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

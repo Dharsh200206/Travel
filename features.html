@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features | AI-Travel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="Logo">
+                <span class="logo-text">AI-Travel</span>
+            </a>
+            
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="features.html" class="active">Features</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+                <!-- Live Clock Display -->
+                <li style="color: var(--text-muted); font-size: 0.85rem; padding: 8px 12px; display: flex; align-items: center;" id="datetime-display"></li>
+                
+                <!-- Theme Switcher -->
+                <li>
+                    <button class="theme-switch-btn" id="theme-toggle" title="Switch Theme">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </li>
+                
+                <!-- Notification Bell -->
+                <li class="notification-container">
+                    <button class="nav-notification-bell" id="notification-bell" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="nav-notification-badge">3</span>
+                    </button>
+                    <div class="notification-panel" id="notification-panel">
+                        <div class="notification-header">
+                            <h4>Notifications</h4>
+                            <span style="font-size: 0.75rem; color: var(--primary); cursor: pointer;">Mark all read</span>
+                        </div>
+                        <ul class="notification-list">
+                            <li>
+                                <p><strong>New Feature!</strong> AI route planning now optimized.</p>
+                                <span>2 hours ago</span>
+                            </li>
+                            <li>
+                                <p><strong>Weather Alert</strong> Rain forecast in Kyoto itinerary.</p>
+                                <span>5 hours ago</span>
+                            </li>
+                            <li>
+                                <p><strong>System Update</strong> Q2 reports are now accessible.</p>
+                                <span>1 day ago</span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                
+                <li><a href="register.html" class="btn btn-primary" style="color: white; padding: 8px 16px;">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container" style="padding-top: 150px; padding-bottom: 100px;">
+        <div style="text-align: center; margin-bottom: 60px;" class="fade-in">
+            <h1 style="font-size: 3rem; margin-bottom: 20px;">Platform Features</h1>
+            <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto;">Discover the robust AI systems driving your next personalized trip itinerary.</p>
+        </div>
+
+        <div class="card-grid">
+            <div class="card slide-in-up">
+                <i class="fas fa-cogs feature-icon"></i>
+                <h3>AI Route Optimizer</h3>
+                <p style="margin-top: 15px; color: var(--text-muted);">Calculates travel patterns, airport layovers, and local transit networks to draw up the fastest and most enjoyable travel paths.</p>
+            </div>
+            
+            <div class="card slide-in-up delay-1">
+                <i class="fas fa-cloud-sun-rain feature-icon"></i>
+                <h3>Weather-Aware Suggestions</h3>
+                <p style="margin-top: 15px; color: var(--text-muted);">Integrates global forecast predictions. If rainfall or heavy snow threatens, it automatically shifts indoor and outdoor attraction order.</p>
+            </div>
+
+            <div class="card slide-in-up delay-2">
+                <i class="fas fa-tags feature-icon"></i>
+                <h3>Budget Reduction Algorithm</h3>
+                <p style="margin-top: 15px; color: var(--text-muted);">Analyzes millions of ticket rates to uncover savings, ensuring flights and hotel bookings align with direct price projections in INR (₹).</p>
+            </div>
+
+            <div class="card slide-in-up delay-3">
+                <i class="fas fa-bell feature-icon"></i>
+                <h3>Instant Notifications</h3>
+                <p style="margin-top: 15px; color: var(--text-muted);">Get critical alerts regarding booking confirmations, departures delay, or general itinerary changes instantly in your panel.</p>
+            </div>
+
+            <div class="card slide-in-up delay-4">
+                <i class="fas fa-chart-pie feature-icon"></i>
+                <h3>Travel Metrics & Reports</h3>
+                <p style="margin-top: 15px; color: var(--text-muted);">Inspect complete breakdowns of previous trips, average budget metrics, and printable guides for physical travel records.</p>
+            </div>
+
+            <div class="card slide-in-up delay-5">
+                <i class="fas fa-shield-alt feature-icon"></i>
+                <h3>Emergency Safety Assure</h3>
+                <p style="margin-top: 15px; color: var(--text-muted);">Get contacts of closest embassies, emergency services, medical clinics, and live offline AI chat logs during data disconnects.</p>
+            </div>
+        </div>
+
+        <div class="zoom-in delay-3" style="margin-top: 80px; text-align: center; padding: 40px; background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
+            <h2 style="margin-bottom: 20px;">Experience AI Travel Planning Firsthand</h2>
+            <p style="color: var(--text-muted); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Unlock premium paths, weather analysis, and local currency tracker immediately after sign up.</p>
+            <a href="register.html" class="btn btn-primary btn-bounce">Plan A Journey Now</a>
+        </div>
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top-btn" id="scroll-top-btn" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2026 AI-Based Travel Itinerary Generator | Designed by Dharshini</p>
+            <div class="footer-social-links">
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

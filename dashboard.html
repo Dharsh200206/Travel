@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | AI-Travel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="Logo">
+                <span class="logo-text">AI-Travel</span>
+            </a>
+            
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+                <!-- Live Clock Display -->
+                <li style="color: var(--text-muted); font-size: 0.85rem; padding: 8px 12px; display: flex; align-items: center;" id="datetime-display"></li>
+                
+                <!-- Theme Switcher -->
+                <li>
+                    <button class="theme-switch-btn" id="theme-toggle" title="Switch Theme">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </li>
+                
+                <!-- Notification Bell -->
+                <li class="notification-container">
+                    <button class="nav-notification-bell" id="notification-bell" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="nav-notification-badge">3</span>
+                    </button>
+                    <div class="notification-panel" id="notification-panel">
+                        <div class="notification-header">
+                            <h4>Notifications</h4>
+                            <span style="font-size: 0.75rem; color: var(--primary); cursor: pointer;">Mark all read</span>
+                        </div>
+                        <ul class="notification-list">
+                            <li>
+                                <p><strong>New Feature!</strong> AI route planning now optimized.</p>
+                                <span>2 hours ago</span>
+                            </li>
+                            <li>
+                                <p><strong>Weather Alert</strong> Rain forecast in Kyoto itinerary.</p>
+                                <span>5 hours ago</span>
+                            </li>
+                            <li>
+                                <p><strong>System Update</strong> Q2 reports are now accessible.</p>
+                                <span>1 day ago</span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                
+                <li><a href="index.html" class="btn btn-outline" style="padding: 8px 16px;">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul style="list-style: none;">
+                <li style="margin-bottom: 20px;"><a href="#" class="active"><i class="fas fa-th-large" style="margin-right: 10px;"></i> <span>Overview</span></a></li>
+                <li style="margin-bottom: 20px;"><a href="services.html"><i class="fas fa-route" style="margin-right: 10px;"></i> <span>My Trips</span></a></li>
+                <li style="margin-bottom: 20px;"><a href="reports.html"><i class="fas fa-wallet" style="margin-right: 10px;"></i> <span>Payments</span></a></li>
+                <li style="margin-bottom: 20px;"><a href="contact.html"><i class="fas fa-cog" style="margin-right: 10px;"></i> <span>Settings</span></a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Dashboard Content -->
+        <main class="main-content">
+            <!-- Welcome Banner Section (Fade/Slide action) -->
+            <div class="welcome-banner-wrapper slide-in-up">
+                <div class="welcome-banner-content">
+                    <h1>AI-Based Travel Itinerary Generator</h1>
+                    <div class="welcome-tagline">Tailored Itineraries for Life's Journeys.</div>
+                    <p class="welcome-desc">The AI-Based Travel Itinerary Generator is a state-of-the-art platform designed to revolutionize how travelers plan their trips. By leveraging advanced machine learning models, it creates bespoke travel plans tailored to individual preferences, budgets, and constraints.</p>
+                    <div class="welcome-vision-mission">
+                        <div class="vision-block">
+                            <h4>Our Vision</h4>
+                            <p>To become the world's leading AI travel companion, making global exploration accessible, affordable, and stress-free for every individual through intelligent automation.</p>
+                        </div>
+                        <div class="mission-block">
+                            <h4>Our Mission</h4>
+                            <p>Empowering travelers with data-driven insights and optimized planning tools, ensuring every journey is perfectly personalized and efficiently organized.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 style="margin-bottom: 30px; display: inline-flex; align-items: center; gap: 10px;" class="fade-in delay-1">
+                <i class="fas fa-chart-line" style="color: var(--primary);"></i> Analytics Overview
+            </h2>
+            
+            <!-- Stat Cards with Count-up Animation -->
+            <div class="stat-grid fade-in delay-2">
+                <div class="stat-card">
+                    <h3>Total Users</h3>
+                    <p class="value"><span class="animate-counter" data-target="12450">0</span></p>
+                    <p style="font-size: 0.8rem; color: var(--success);"><i class="fas fa-arrow-up"></i> +12% this month</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Active Users</h3>
+                    <p class="value"><span class="animate-counter" data-target="3210">0</span></p>
+                    <p style="font-size: 0.8rem; color: var(--success);"><i class="fas fa-arrow-up"></i> +5% today</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Revenue Generated</h3>
+                    <p class="value">₹<span class="animate-counter" data-target="45200">0</span></p>
+                    <p style="font-size: 0.8rem; color: var(--success);"><i class="fas fa-arrow-up"></i> +18% growth</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Transactions</h3>
+                    <p class="value"><span class="animate-counter" data-target="1120">0</span></p>
+                    <p style="font-size: 0.8rem; color: var(--warning);"><i class="fas fa-minus"></i> Stable</p>
+                </div>
+            </div>
+
+            <div class="card-grid fade-in delay-3">
+                <!-- Recent Activities -->
+                <div class="card">
+                    <h3>Recent Activities</h3>
+                    <ul style="list-style: none; margin-top: 20px;">
+                        <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">
+                            <p style="font-size: 0.9rem;">New itinerary generated for <strong>Paris Trip</strong></p>
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">2 hours ago</span>
+                        </li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color);">
+                            <p style="font-size: 0.9rem;">Hotel booking confirmed: <strong>Tokyo Bay Hotel</strong></p>
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">5 hours ago</span>
+                        </li>
+                        <li style="padding: 10px 0;">
+                            <p style="font-size: 0.9rem;">Review submitted for <strong>Swiss Alp Express</strong></p>
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">Yesterday</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Popular Destinations -->
+                <div class="card">
+                    <h3>Popular Destinations</h3>
+                    <div style="margin-top: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Iceland</span>
+                            <span style="color: var(--primary); font-weight: 600;">45% Increase</span>
+                        </div>
+                        <div style="height: 8px; background: var(--surface-light); border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
+                            <div class="progress-bar-fill" style="width: 45%;"></div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Maldives</span>
+                            <span style="color: var(--secondary); font-weight: 600;">32% Increase</span>
+                        </div>
+                        <div style="height: 8px; background: var(--surface-light); border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
+                            <div class="progress-bar-fill" style="width: 32%; background: var(--secondary);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Tasks -->
+                <div class="card">
+                    <h3>Pending Planner Tasks</h3>
+                    <ul style="list-style: none; margin-top: 20px;">
+                        <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                            <input type="checkbox" checked style="width: auto;">
+                            <span style="text-decoration: line-through; color: var(--text-muted);">Validate API routes</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                            <input type="checkbox" style="width: auto;">
+                            <span>Update destination database</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                            <input type="checkbox" style="width: auto;">
+                            <span>Finalize revenue reports</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Travel Insights -->
+            <div class="card fade-in delay-4" style="margin-top: 30px;">
+                <h3>Travel Insights</h3>
+                <p style="color: var(--text-muted); margin-top: 15px;">Based on your recent search history, we recommend looking into <strong>Sustainable Travel options in Scandinavia</strong>. Travel demand for Northern Europe is expected to rise by 25% in the next quarter.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top-btn" id="scroll-top-btn" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2026 AI-Based Travel Itinerary Generator | Designed by Dharshini</p>
+            <div class="footer-social-links">
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

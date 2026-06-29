@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Based Travel Itinerary Generator | Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="AI-Travel Logo">
+                <span class="logo-text">AI-Travel</span>
+            </a>
+            
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+                <!-- Live Clock Display -->
+                <li style="color: var(--text-muted); font-size: 0.85rem; padding: 8px 12px; display: flex; align-items: center;" id="datetime-display"></li>
+                
+                <!-- Theme Switcher -->
+                <li>
+                    <button class="theme-switch-btn" id="theme-toggle" title="Switch Theme">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </li>
+                
+                <!-- Notification Bell -->
+                <li class="notification-container">
+                    <button class="nav-notification-bell" id="notification-bell" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="nav-notification-badge">3</span>
+                    </button>
+                    <div class="notification-panel" id="notification-panel">
+                        <div class="notification-header">
+                            <h4>Notifications</h4>
+                            <span style="font-size: 0.75rem; color: var(--primary); cursor: pointer;">Mark all read</span>
+                        </div>
+                        <ul class="notification-list">
+                            <li>
+                                <p><strong>New Feature!</strong> AI route planning now optimized.</p>
+                                <span>2 hours ago</span>
+                            </li>
+                            <li>
+                                <p><strong>Weather Alert</strong> Rain forecast in Kyoto itinerary.</p>
+                                <span>5 hours ago</span>
+                            </li>
+                            <li>
+                                <p><strong>System Update</strong> Q2 reports are now accessible.</p>
+                                <span>1 day ago</span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                
+                <li><a href="register.html" class="btn btn-primary" style="color: white; padding: 8px 16px;">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section with Slideshow Overlay -->
+        <section class="hero" style="min-height: 80vh; padding-bottom: 20px;">
+            <div class="container hero-content fade-in">
+                <h1 style="font-size: 3.5rem;">Modern Travel Planning <br> <span style="color: var(--primary);">Powered by AI</span></h1>
+                <p>Generate personalized travel itineraries in seconds. Smart recommendations, budget optimization, and real-time insights for your next adventure.</p>
+                <div class="hero-btns" style="margin-bottom: 40px;">
+                    <a href="register.html" class="btn btn-primary btn-bounce">Get Started Free</a>
+                    <a href="services.html" class="btn btn-outline btn-bounce" style="margin-left: 15px;">Explore Services</a>
+                </div>
+                
+                <div style="padding: 20px; background: var(--surface); border-radius: var(--radius-md); display: inline-block; border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
+                    <p style="font-size: 0.95rem; margin-bottom: 5px;">Project by <span style="color: var(--primary); font-weight: 600;">Dharshini</span></p>
+                    <p style="font-size: 0.95rem;">Register No: <span style="color: var(--primary); font-weight: 600;">REG12345678</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Image Slider Carousel -->
+        <section style="padding: 40px 0; background: var(--surface-light); transition: background 0.4s;">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h2>Visual Travel Inspiration</h2>
+                    <p style="color: var(--text-muted); margin-top: 5px;">Swipe or click to view gorgeous spots simulated in our planner portfolio</p>
+                </div>
+                <div class="slider-container zoom-in">
+                    <div class="slider-wrapper">
+                        <div class="slide">
+                            <img src="images/hero-banner.jpg" alt="Beautiful Mountains">
+                            <div class="slide-content">
+                                <h2>Tailored Destinations</h2>
+                                <p>Our engine matches global destinations based on traveler profiles.</p>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <img src="images/destination1.jpg" alt="Santorini Village">
+                            <div class="slide-content">
+                                <h2>Santorini, Greece</h2>
+                                <p>Breathtaking views, luxury resorts, and high performance itinerary building.</p>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <img src="images/destination2.jpg" alt="Kyoto Shrine">
+                            <div class="slide-content">
+                                <h2>Kyoto, Japan</h2>
+                                <p>Serene shrines, beautiful cherry blossom forests, hotel reservations.</p>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <img src="images/destination3.jpg" alt="Swiss Chalet">
+                            <div class="slide-content">
+                                <h2>Interlaken, Switzerland</h2>
+                                <p>Majestic snow peaks, skiing tracks, and real-time transit calculation.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-controls">
+                        <button class="slider-btn" id="prev-slide" aria-label="Previous Slide"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-btn" id="next-slide" aria-label="Next Slide"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="slider-dots" id="slider-dots"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marquee Updates -->
+        <div class="ticker-wrap">
+            <div class="ticker">
+                🚀 New Feature: AI Weather-Based Route Optimization now live! | 🌍 Over 500+ destinations added this week | 💎 Premium plans starting at ₹0 for the first month | ✈️ Partnering with top 50 global airlines for real-time booking integrations | 
+            </div>
+        </div>
+
+        <!-- Project Overview -->
+        <section class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 2.5rem;">Project Vision & Mission</h2>
+                <div style="height: 4px; width: 60px; background: var(--primary); margin: 20px auto;"></div>
+            </div>
+            
+            <div class="card-grid">
+                <article class="card slide-in-up">
+                    <i class="fas fa-info-circle feature-icon"></i>
+                    <h3>Project Description</h3>
+                    <p style="margin-top: 15px; color: var(--text-muted);">The AI-Based Travel Itinerary Generator is a state-of-the-art platform designed to revolutionize how travelers plan their trips. By leveraging advanced machine learning models, it creates bespoke travel plans tailored to individual preferences, budgets, and constraints.</p>
+                </article>
+                <article class="card slide-in-up delay-1">
+                    <i class="fas fa-eye feature-icon"></i>
+                    <h3>Our Vision</h3>
+                    <p style="margin-top: 15px; color: var(--text-muted);">To become the world's leading AI travel companion, making global exploration accessible, affordable, and stress-free for every individual through intelligent automation.</p>
+                </article>
+                <article class="card slide-in-up delay-2">
+                    <i class="fas fa-bullseye feature-icon"></i>
+                    <h3>Our Mission</h3>
+                    <p style="margin-top: 15px; color: var(--text-muted);">Empowering travelers with data-driven insights and optimized planning tools, ensuring every journey is perfectly personalized and efficiently organized.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top-btn" id="scroll-top-btn" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="logo" style="justify-content: center; margin-bottom: 20px;">
+                <img src="images/logo.png" alt="Logo">
+                <span class="logo-text">AI-Travel</span>
+            </div>
+            <p>&copy; 2026 AI-Based Travel Itinerary Generator. All Rights Reserved.</p>
+            <p style="margin-top: 5px;">Designed by Dharshini</p>
+            <div class="footer-social-links">
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
