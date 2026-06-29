@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Req 20: Standard HTML5 document structure -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-Based Travel Itinerary Generator - Registration and Information Portal">
+    <title>AI-Travel | Registration Portal</title>
+
+    <!-- Google Fonts for professional typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Req 1: Professional Theme CSS -->
+    <style>
+        /* ==========================================
+           CSS RESET & GLOBAL STYLES
+        ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary:       #0ea5e9;
+            --primary-dark:  #0284c7;
+            --secondary:     #6366f1;
+            --accent:        #22d3ee;
+            --bg:            #0f172a;
+            --surface:       #1e293b;
+            --surface-light: #334155;
+            --text:          #f8fafc;
+            --text-muted:    #94a3b8;
+            --success:       #10b981;
+            --warning:       #f59e0b;
+            --error:         #ef4444;
+            --border:        rgba(255,255,255,0.1);
+            --radius:        10px;
+            --shadow:        0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--accent);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================
+           Req 2: HTML5 HEADER
+        ========================================== */
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+            border-bottom: 2px solid var(--primary);
+            padding: 30px 0 20px;
+            text-align: center;
+        }
+
+        .header-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .site-logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            box-shadow: 0 4px 15px rgba(14,165,233,0.4);
+        }
+
+        .site-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f8fafc, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .site-tagline {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        /* ==========================================
+           Req 3: NAVIGATION MENU
+        ========================================== */
+        nav {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 16px 22px;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background: rgba(14,165,233,0.06);
+        }
+
+        nav ul li a i {
+            margin-right: 6px;
+        }
+
+        /* ==========================================
+           MAIN CONTENT LAYOUT (Req 19: semantic)
+        ========================================== */
+        main {
+            padding: 50px 0 80px;
+        }
+
+        /* ==========================================
+           Req 4: INTRODUCTION SECTION
+        ========================================== */
+        .intro-section {
+            background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(14,165,233,0.12));
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-bottom: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .intro-section article {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 28px;
+            border: 1px solid var(--border);
+            transition: border-color 0.3s;
+        }
+
+        .intro-section article:hover {
+            border-color: var(--primary);
+        }
+
+        .intro-section article h3 {
+            color: var(--primary);
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .intro-section article p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================
+           Req 5: REGISTRATION FORM STYLES
+        ========================================== */
+        .form-section {
+            background: var(--surface);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 50px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .form-section > p {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        label .required {
+            color: var(--error);
+            margin-left: 3px;
+        }
+
+        /* Input, Select, Number, Date, Time fields */
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="time"],
+        input[type="number"],
+        select,
+        textarea {
+            padding: 12px 16px;
+            background: #0f172a;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            width: 100%;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(14,165,233,0.15);
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Validation states */
+        input:valid:not(:placeholder-shown) {
+            border-color: var(--success);
+        }
+
+        input:invalid:not(:placeholder-shown) {
+            border-color: var(--error);
+        }
+
+        /* Req 15: Radio Buttons */
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 4px;
+        }
+
+        .radio-group label,
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 400;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .radio-group input[type="radio"],
+        .checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Req 12 & 13: contenteditable area */
+        .editable-area {
+            min-height: 100px;
+            padding: 12px 16px;
+            background: #0f172a;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            outline: none;
+        }
+
+        .editable-area:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(14,165,233,0.15);
+        }
+
+        .editable-area:empty::before {
+            content: attr(data-placeholder);
+            color: var(--text-muted);
+        }
+
+        .editable-note {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Section dividers in form */
+        .form-section-label {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            grid-column: 1 / -1;
+            padding: 20px 0 5px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Req 17: Form Buttons */
+        .btn-row {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 13px 28px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            flex: 2;
+            justify-content: center;
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 0 20px rgba(14,165,233,0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            background: transparent;
+            border: 2px solid var(--text-muted);
+            color: var(--text-muted);
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn-reset:hover {
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+
+        .btn-cancel {
+            background: transparent;
+            border: 2px solid var(--error);
+            color: var(--error);
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn-cancel:hover {
+            background: var(--error);
+            color: white;
+        }
+
+        /* Aside */
+        aside {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-top: 40px;
+        }
+
+        aside h3 {
+            color: var(--secondary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        aside ul {
+            padding-left: 20px;
+            color: var(--text-muted);
+            line-height: 2;
+        }
+
+        /* ==========================================
+           Req 18: HTML5 FOOTER
+        ========================================== */
+        footer {
+            background: var(--surface);
+            border-top: 2px solid var(--primary);
+            padding: 40px 0 30px;
+            text-align: center;
+        }
+
+        .footer-inner {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .footer-block h4 {
+            color: var(--primary);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-block p, .footer-block a {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            display: block;
+            margin-bottom: 6px;
+            line-height: 1.7;
+        }
+
+        .footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .intro-section { grid-template-columns: 1fr; }
+            .form-grid     { grid-template-columns: 1fr; }
+            .form-group.full-width { grid-column: 1; }
+            .form-section-label   { grid-column: 1; }
+            .btn-row       { grid-column: 1; }
+            .footer-inner  { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================
+         Req 2: HTML5 HEADER
+    ======================================== -->
+    <header>
+        <div class="container header-inner">
+            <!-- Application Logo -->
+            <div class="site-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-plane-departure"></i>
+                </div>
+                <h1 class="site-title">AI-Travel</h1>
+            </div>
+            <!-- Short Tagline -->
+            <p class="site-tagline">AI-Based Travel Itinerary Generator &mdash; Your Journey, Intelligently Planned</p>
+        </div>
+    </header>
+
+    <!-- ========================================
+         Req 3: NAVIGATION MENU
+    ======================================== -->
+    <nav aria-label="Primary Navigation">
+        <ul>
+            <li><a href="#home" class="active"><i class="fas fa-home"></i>Home</a></li>
+            <li><a href="#about"><i class="fas fa-info-circle"></i>About</a></li>
+            <li><a href="#services"><i class="fas fa-concierge-bell"></i>Services</a></li>
+            <li><a href="#registration"><i class="fas fa-user-plus"></i>Registration</a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i>Contact</a></li>
+            <li><a href="#help"><i class="fas fa-question-circle"></i>Help</a></li>
+        </ul>
+    </nav>
+
+    <!-- ========================================
+         Req 19: SEMANTIC MAIN ELEMENT
+    ======================================== -->
+    <main id="home">
+        <div class="container">
+
+            <!-- ====================================
+                 Req 4: INTRODUCTION SECTION
+                 Using <section> and <article>
+            ==================================== -->
+            <section id="about" aria-label="Introduction">
+                <div class="intro-section">
+                    <!-- Article 1: Project Description -->
+                    <article>
+                        <h3><i class="fas fa-info-circle"></i> About the Application</h3>
+                        <p>The AI-Based Travel Itinerary Generator is a cutting-edge platform that leverages intelligent machine learning models to create fully personalized travel plans. Simply provide your preferences, budget, and travel dates — the AI does the rest.</p>
+                    </article>
+
+                    <!-- Article 2: Vision -->
+                    <article>
+                        <h3><i class="fas fa-eye"></i> Our Vision</h3>
+                        <p>To become the world's most trusted AI travel companion, making seamless global exploration accessible and affordable for every kind of traveler, from solo backpackers to luxury vacationers.</p>
+                    </article>
+
+                    <!-- Article 3: How It Works -->
+                    <article>
+                        <h3><i class="fas fa-cogs"></i> How It Works</h3>
+                        <p>Register below and tell us your travel interests. Our AI engine analyzes thousands of global data points to recommend optimized destinations, hotels, transport routes, and budgets — all tailored to you.</p>
+                    </article>
+
+                    <!-- Article 4: Key Benefits -->
+                    <article id="services">
+                        <h3><i class="fas fa-star"></i> Key Benefits</h3>
+                        <p>Save up to 30% on your travel costs with smart budget allocation. Enjoy 500+ destinations, real-time weather-based route updates, collaborative group planning, and round-the-clock AI assistance.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- ====================================
+                 Req 5–17: REGISTRATION FORM
+            ==================================== -->
+            <section id="registration" aria-label="Registration Form">
+                <div class="form-section">
+                    <h2><i class="fas fa-user-plus" style="color: var(--primary); margin-right: 10px;"></i> Traveler Registration</h2>
+                    <p>Please complete all fields to create your account. Fields marked with <span style="color:var(--error);">*</span> are required.</p>
+
+                    <!-- HTML5 novalidate removed so native HTML5 validation is active -->
+                    <form id="travel-form" method="post" action="#">
+                        <div class="form-grid">
+
+                            <!-- === PERSONAL INFORMATION === -->
+                            <div class="form-section-label">
+                                <i class="fas fa-user"></i> Personal Information
+                            </div>
+
+                            <!-- Req 6: Name Field -->
+                            <div class="form-group">
+                                <label for="full-name">Full Name <span class="required">*</span></label>
+                                <!-- text input with placeholder and required validation -->
+                                <input
+                                    type="text"
+                                    id="full-name"
+                                    name="full_name"
+                                    placeholder="e.g. Dharshini Ravi"
+                                    required
+                                    minlength="3"
+                                    autocomplete="name"
+                                >
+                            </div>
+
+                            <!-- Req 7: Email Field -->
+                            <div class="form-group">
+                                <label for="email">Email Address <span class="required">*</span></label>
+                                <!-- HTML5 email input type with built-in validation -->
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="e.g. dharshini@example.com"
+                                    required
+                                    autocomplete="email"
+                                >
+                            </div>
+
+                            <!-- Req 8: Phone Number -->
+                            <div class="form-group">
+                                <label for="phone">Phone Number <span class="required">*</span></label>
+                                <!-- HTML5 tel input with pattern for Indian mobile numbers -->
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="e.g. +91 98765 43210"
+                                    pattern="[+]?[0-9\s\-]{10,15}"
+                                    required
+                                    autocomplete="tel"
+                                >
+                            </div>
+
+                            <!-- Req 11: Age -->
+                            <div class="form-group">
+                                <label for="age">Age <span class="required">*</span></label>
+                                <!-- HTML5 number input with min and max values -->
+                                <input
+                                    type="number"
+                                    id="age"
+                                    name="age"
+                                    placeholder="e.g. 22"
+                                    min="16"
+                                    max="100"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Req 9: Date of Birth -->
+                            <div class="form-group">
+                                <label for="dob">Date of Birth <span class="required">*</span></label>
+                                <!-- HTML5 date input type -->
+                                <input
+                                    type="date"
+                                    id="dob"
+                                    name="dob"
+                                    required
+                                    max="2008-12-31"
+                                >
+                            </div>
+
+                            <!-- Req 10: Preferred Time -->
+                            <div class="form-group">
+                                <label for="pref-time">Preferred Contact Time</label>
+                                <!-- HTML5 time input type -->
+                                <input
+                                    type="time"
+                                    id="pref-time"
+                                    name="preferred_time"
+                                    min="09:00"
+                                    max="18:00"
+                                >
+                            </div>
+
+                            <!-- Req 15: Gender (Radio Buttons) -->
+                            <div class="form-group full-width">
+                                <label>Gender <span class="required">*</span></label>
+                                <div class="radio-group" role="radiogroup" aria-label="Gender selection">
+                                    <label>
+                                        <input type="radio" name="gender" value="male" required>
+                                        <i class="fas fa-male" style="color:var(--primary)"></i> Male
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="gender" value="female">
+                                        <i class="fas fa-female" style="color:var(--secondary)"></i> Female
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="gender" value="non-binary">
+                                        <i class="fas fa-genderless" style="color:var(--accent)"></i> Non-Binary
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="gender" value="prefer-not">
+                                        Prefer not to say
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Req 14: Address (Textarea) -->
+                            <div class="form-group full-width">
+                                <label for="address">Home Address</label>
+                                <!-- Multiline address using <textarea> -->
+                                <textarea
+                                    id="address"
+                                    name="address"
+                                    rows="3"
+                                    placeholder="Enter your full home address here..."
+                                ></textarea>
+                            </div>
+
+                            <!-- === TRAVEL PREFERENCES === -->
+                            <div class="form-section-label">
+                                <i class="fas fa-globe-asia"></i> Travel Preferences
+                            </div>
+
+                            <!-- Req 16: Skills/Interests (Checkboxes) -->
+                            <div class="form-group full-width">
+                                <label>Travel Interests <span style="font-weight:400; color:var(--text-muted);">(Select all that apply)</span></label>
+                                <div class="checkbox-group" role="group" aria-label="Travel interests checkboxes">
+                                    <label><input type="checkbox" name="interests" value="adventure"> <i class="fas fa-hiking" style="color:var(--success)"></i> Adventure</label>
+                                    <label><input type="checkbox" name="interests" value="culture"> <i class="fas fa-landmark" style="color:var(--warning)"></i> Culture &amp; History</label>
+                                    <label><input type="checkbox" name="interests" value="beach"> <i class="fas fa-umbrella-beach" style="color:var(--accent)"></i> Beach &amp; Relaxation</label>
+                                    <label><input type="checkbox" name="interests" value="food"> <i class="fas fa-utensils" style="color:var(--error)"></i> Food &amp; Cuisine</label>
+                                    <label><input type="checkbox" name="interests" value="wildlife"> <i class="fas fa-paw" style="color:var(--success)"></i> Wildlife &amp; Nature</label>
+                                    <label><input type="checkbox" name="interests" value="photography"> <i class="fas fa-camera" style="color:var(--primary)"></i> Photography</label>
+                                </div>
+                            </div>
+
+                            <!-- === COMMENTS – contenteditable + spellcheck === -->
+                            <div class="form-section-label">
+                                <i class="fas fa-comment-dots"></i> Additional Comments
+                            </div>
+
+                            <!-- Req 12: Editable Area using contenteditable -->
+                            <!-- Req 13: spellcheck enabled on editable section -->
+                            <div class="form-group full-width">
+                                <label>Comments / Special Requests</label>
+                                <div
+                                    class="editable-area"
+                                    id="editable-comments"
+                                    contenteditable="true"
+                                    spellcheck="true"
+                                    role="textbox"
+                                    aria-multiline="true"
+                                    aria-label="Editable comments area with spell check"
+                                    data-placeholder="Type your additional travel notes, special requests, or any preferences here. Spell check is active — misspelled words will be underlined."
+                                ></div>
+                                <p class="editable-note">
+                                    <i class="fas fa-spell-check" style="color:var(--primary)"></i>
+                                    Spell check is <strong style="color:var(--success)">enabled</strong> on this field. Misspelled words will be underlined by your browser automatically.
+                                </p>
+                            </div>
+
+                            <!-- Req 17: Submit, Reset, and Cancel Buttons -->
+                            <div class="btn-row">
+                                <button type="submit" class="btn btn-submit">
+                                    <i class="fas fa-paper-plane"></i> Submit Registration
+                                </button>
+                                <button type="reset" class="btn btn-reset">
+                                    <i class="fas fa-redo"></i> Reset
+                                </button>
+                                <button type="button" class="btn btn-cancel" onclick="window.location.href='index.html'">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>
+                            </div>
+
+                        </div><!-- end .form-grid -->
+                    </form>
+                </div>
+            </section>
+
+            <!-- ====================================
+                 Req 19: ASIDE – supplementary info
+            ==================================== -->
+            <aside id="help" aria-label="Help Information">
+                <h3><i class="fas fa-question-circle"></i> Help &amp; Registration Guide</h3>
+                <ul>
+                    <li>Ensure your email address is valid — a verification link will be sent upon registration.</li>
+                    <li>Phone numbers must be 10–15 digits (including country code).</li>
+                    <li>Your Date of Birth should reflect your actual birthdate for age verification.</li>
+                    <li>The Preferred Contact Time field accepts values between 09:00 AM – 06:00 PM.</li>
+                    <li>The Comments area supports spell checking — misspelled words are underlined.</li>
+                    <li>Selecting your travel interests helps our AI generate personalized itineraries for you.</li>
+                    <li>For support, contact <a href="mailto:support@ai-travel.com">support@ai-travel.com</a></li>
+                </ul>
+            </aside>
+
+        </div><!-- end .container -->
+    </main>
+
+    <!-- ========================================
+         Req 18: HTML5 FOOTER
+    ======================================== -->
+    <footer id="contact" aria-label="Site Footer">
+        <div class="container">
+            <div class="footer-inner">
+
+                <!-- Block 1: Project Info -->
+                <div class="footer-block">
+                    <h4><i class="fas fa-plane"></i> AI-Travel</h4>
+                    <p>AI-Based Travel Itinerary Generator</p>
+                    <p>Full Stack Development Laboratory</p>
+                    <p>Course Code: 23IT721</p>
+                </div>
+
+                <!-- Block 2: Student Info (required by assignment) -->
+                <div class="footer-block">
+                    <h4><i class="fas fa-user-graduate"></i> Student</h4>
+                    <p>Name: <strong style="color:var(--text)">Dharshini</strong></p>
+                    <p>Register No: REG12345678</p>
+                    <p>Institution: Department of Information Technology</p>
+                </div>
+
+                <!-- Block 3: Contact Details -->
+                <div class="footer-block">
+                    <h4><i class="fas fa-envelope"></i> Contact</h4>
+                    <a href="mailto:support@ai-travel.com"><i class="fas fa-envelope" style="margin-right:6px"></i>support@ai-travel.com</a>
+                    <a href="tel:+911234567890"><i class="fas fa-phone" style="margin-right:6px"></i>+91 12345 67890</a>
+                    <p><i class="fas fa-map-marker-alt" style="margin-right:6px"></i>Chennai, Tamil Nadu, India</p>
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="footer-bottom">
+                <p>&copy; 2026 AI-Based Travel Itinerary Generator &mdash; Designed by <strong style="color:var(--primary)">Dharshini</strong></p>
+                <p style="margin-top:5px">All Rights Reserved. Built with HTML5 semantic standards.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Req 20: Meaningful JavaScript to handle form submission feedback -->
+    <script>
+        // Handle form submission with user feedback
+        document.getElementById('travel-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('full-name').value;
+            alert(`✅ Thank you, ${name}! Your registration has been submitted successfully.\nOur team will contact you shortly.`);
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+
+</body>
+</html>
