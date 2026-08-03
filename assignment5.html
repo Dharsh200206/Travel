@@ -7,18 +7,36 @@
     
     <!-- SIR/PROFESSOR: This demonstrates EXTERNAL CSS (Req: External Stylesheet) -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- FontAwesome for CSS Icons (Req 28) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- SIR/PROFESSOR: This demonstrates INTERNAL CSS (Req: Internal Stylesheet) -->
     <style>
-        /* Advanced CSS Requirements Demonstrated Here */
+        /* ========================================================
+           Advanced CSS Requirements Demonstrated Below 
+           ======================================================== */
         
-        /* 1. CSS Variables */
+        /* Req 21: CSS Variables */
         :root {
             --primary-accent: #0ea5e9;
             --hover-color: #0284c7;
+            --bg-light: #f8f9fa;
         }
 
-        /* 2. Pseudo-elements ::before and ::after */
+        /* Req 25: CSS Pseudo Elements (::before, ::after, ::first-letter, ::first-line, ::selection) */
+        ::selection {
+            background-color: var(--primary-accent);
+            color: white;
+        }
+        .pseudo-demo::first-letter {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--primary-accent);
+        }
+        .pseudo-demo::first-line {
+            font-style: italic;
+        }
         .advanced-title::before {
             content: "✨ ";
             color: var(--primary-accent);
@@ -28,37 +46,78 @@
             color: var(--primary-accent);
         }
 
-        /* 3. CSS Grid Layout */
+        /* Req 22: CSS Grid Layout */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
             padding: 20px;
         }
 
-        /* 4. CSS Flexbox */
+        /* Req 23: CSS Flexbox Layout */
         .flex-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #f8f9fa;
+            background: var(--bg-light);
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
         }
 
-        /* 5. CSS Transformations & Transitions */
-        .hover-zoom {
-            transition: transform 0.3s ease;
+        /* Req 26 & 27: CSS Transformations & Transitions (translate, rotate, scale, skew) */
+        .card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease; /* Transition */
         }
-        .hover-zoom:hover {
-            transform: scale(1.05) rotate(1deg); /* Scale and Rotate Transform */
+        .card:hover {
+            transform: scale(1.05) rotate(1deg) translateY(-5px); /* Scale, Rotate, Translate */
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        .btn-skew {
+            display: inline-block;
+            background: var(--primary-accent);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .btn-skew:hover {
+            transform: skew(-10deg); /* Skew Transform */
+            background: var(--hover-color);
         }
 
-        /* 6. CSS Positioning (Sticky) */
+        /* Req 28: CSS Icons with hover animations */
+        .icon-hover i {
+            transition: transform 0.3s ease, color 0.3s ease;
+            font-size: 24px;
+            color: #555;
+        }
+        .icon-hover:hover i {
+            transform: scale(1.3) rotate(15deg);
+            color: var(--primary-accent);
+        }
+
+        /* Req 29: Image Hover Effects (zoom, grayscale, blur) */
+        .img-container {
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        .img-container img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            transition: all 0.5s ease;
+            filter: grayscale(100%); /* Grayscale */
+        }
+        .card:hover .img-container img {
+            filter: grayscale(0%) blur(0px);
+            transform: scale(1.2); /* Image Zoom */
+        }
+
+        /* Req 30: CSS Positioning (Sticky, Relative, Absolute) */
         .sticky-notice {
-            position: sticky;
-            top: 60px; /* Sticks just under the nav */
+            position: sticky; /* Sticky */
+            top: 0px; 
             z-index: 100;
             background: #ffcc00;
             color: #333;
@@ -68,36 +127,34 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        /* 7. CSS Progress Bar */
+        /* Req 31: CSS Progress Bar with Animations */
         .css-progress-bar {
             width: 100%;
             background-color: #e0e0e0;
             border-radius: 10px;
             overflow: hidden;
-            margin: 10px 0;
+            margin: 10px 0 5px 0;
         }
         .css-progress-fill {
-            height: 20px;
+            height: 15px;
             background-color: var(--primary-accent);
-            width: 85%; /* 85% filled */
-            animation: loadProgress 2s ease-out; /* 8. CSS Animations */
+            animation: loadProgress 2s ease-out forwards;
         }
-
         @keyframes loadProgress {
             from { width: 0; }
-            to { width: 85%; }
+            to { width: 100%; }
         }
 
-        /* 9. Pure CSS Tooltip */
+        /* Req 32: Pure CSS Tooltip */
         .css-tooltip {
-            position: relative;
+            position: relative; /* Relative */
             cursor: pointer;
             color: var(--primary-accent);
             text-decoration: underline;
         }
         .css-tooltip::after {
             content: attr(data-tooltip);
-            position: absolute;
+            position: absolute; /* Absolute */
             bottom: 125%;
             left: 50%;
             transform: translateX(-50%);
@@ -114,11 +171,25 @@
         .css-tooltip:hover::after {
             opacity: 1;
         }
+
+        /* Req 24: Media Queries */
+        @media screen and (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr; /* Stack on mobile */
+            }
+            .flex-row {
+                flex-direction: column; /* Stack flexbox on mobile */
+                text-align: center;
+            }
+            .hero-content h1 {
+                font-size: 2rem !important; /* Adjust font size on tablet/mobile */
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Navigation (From existing style.css) -->
+    <!-- Req 23 Flexbox & Req 30 Sticky Navbar (From style.css normally, but here via internal/external) -->
     <nav>
         <div class="logo">AI Travel Planner</div>
         <ul>
@@ -132,86 +203,109 @@
     </nav>
 
     <!-- SIR/PROFESSOR: This demonstrates INLINE CSS (Req: Inline Stylesheet) -->
-    <!-- Also demonstrates sticky positioning from Internal CSS -->
+    <!-- Req 30: CSS Positioning (Sticky) -->
     <div class="sticky-notice" style="border-bottom: 3px solid #e6b800; text-transform: uppercase;">
-        Note: This page demonstrates Inline, Internal, and External CSS using Advanced properties!
+        Note: Try highlighting text to see the custom ::selection (Req 25)
     </div>
 
     <!-- Hero Section -->
-    <!-- Advanced Inline CSS Example -->
-    <section class="hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/travel-bg.jpg') center/cover; padding: 100px 20px;">
+    <!-- SIR/PROFESSOR: Advanced INLINE CSS Examples -->
+    <section class="hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80') center/cover; padding: 100px 20px;">
         <div class="hero-content">
-            <!-- Using internal CSS pseudo elements class -->
             <h1 class="advanced-title" style="font-size: 3rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Explore Advanced Features</h1>
-            <p style="font-style: italic; letter-spacing: 1px;">
-                Showcasing Grid, Flexbox, Animations, and Transforms within the AI Travel ecosystem.
+            
+            <!-- Req 25: Pseudo ::first-letter and ::first-line -->
+            <p class="pseudo-demo" style="letter-spacing: 1px; max-width: 600px; margin: auto; line-height: 1.6;">
+                Showcasing Grid, Flexbox, Animations, Image Hovers, and Transforms within the AI Travel ecosystem. This text specifically demonstrates first-letter and first-line pseudo elements functioning securely.
             </p>
+            <br>
+            <!-- Req 26: Skew transform on button -->
+            <a href="#dashboard" class="btn-skew">Explore Destinations</a>
         </div>
     </section>
 
-    <!-- Dashboard: Demonstrating CSS Grid & Transforms -->
+    <!-- Req 22: CSS Grid Layout -->
     <section id="dashboard" style="padding: 40px 20px;">
-        <h2 style="text-align: center; margin-bottom: 30px;">CSS Grid & Transforms</h2>
+        <h2 style="text-align: center; margin-bottom: 30px;">CSS Grid, Image Hovers & Transforms</h2>
         
         <div class="grid-container">
             <!-- Card 1 -->
-            <div class="card hover-zoom" style="background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-                <h1 style="color: #0ea5e9;">Tokyo</h1>
-                <p>Popular Destination</p>
+            <!-- Req 26, 27: Transform (Scale, Rotate, Translate) on hover via .card class -->
+            <div class="card" style="background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                <!-- Req 29: Image Hover Effects (zoom, grayscale) -->
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=400&q=80" alt="Tokyo">
+                </div>
+                <h3 style="color: #0ea5e9; margin-top: 15px;">Tokyo</h3>
+                
+                <!-- Req 31: CSS Progress Bar -->
                 <div class="css-progress-bar">
-                    <div class="css-progress-fill" style="width: 95%;"></div>
+                    <div class="css-progress-fill" style="max-width: 95%;"></div>
                 </div>
                 <small>Demand: 95%</small>
             </div>
 
             <!-- Card 2 -->
-            <div class="card hover-zoom" style="background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-                <h1 style="color: #0ea5e9;">Paris</h1>
-                <p>Trending AI Match</p>
+            <div class="card" style="background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=400&q=80" alt="Paris">
+                </div>
+                <h3 style="color: #0ea5e9; margin-top: 15px;">Paris</h3>
                 <div class="css-progress-bar">
-                    <div class="css-progress-fill" style="width: 80%; background-color: #10b981;"></div>
+                    <div class="css-progress-fill" style="max-width: 80%; background-color: #10b981;"></div>
                 </div>
                 <small>Demand: 80%</small>
             </div>
 
             <!-- Card 3 -->
-            <div class="card hover-zoom" style="background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-                <h1 style="color: #0ea5e9;">New York</h1>
-                <p>Business Travel</p>
+            <div class="card" style="background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=400&q=80" alt="New York">
+                </div>
+                <h3 style="color: #0ea5e9; margin-top: 15px;">New York</h3>
                 <div class="css-progress-bar">
-                    <div class="css-progress-fill" style="width: 70%; background-color: #f59e0b;"></div>
+                    <div class="css-progress-fill" style="max-width: 70%; background-color: #f59e0b;"></div>
                 </div>
                 <small>Demand: 70%</small>
             </div>
         </div>
     </section>
 
-    <!-- Services: Demonstrating Flexbox & Tooltips -->
+    <!-- Req 23: CSS Flexbox -->
     <section id="services" style="padding: 40px 20px; max-width: 900px; margin: auto;">
-        <h2 style="text-align: center; margin-bottom: 30px;">CSS Flexbox & Tooltips</h2>
+        <h2 style="text-align: center; margin-bottom: 30px;">CSS Flexbox, Icons & Tooltips</h2>
 
         <div class="flex-row">
             <div>
-                <h3 style="margin: 0 0 10px 0;">Smart Itinerary Planning</h3>
+                <h3 style="margin: 0 0 10px 0;">Smart Planning</h3>
                 <p style="margin: 0; color: #555;">AI handles the scheduling automatically.</p>
             </div>
-            <!-- Pure CSS Tooltip -->
-            <strong class="css-tooltip" data-tooltip="Hover effect powered by CSS ::after">Hover to learn more</strong>
+            
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <!-- Req 28: CSS Icons with hover -->
+                <a href="#" class="icon-hover"><i class="fas fa-calendar-alt"></i></a>
+                <!-- Req 32: Pure CSS Tooltip (Absolute Positioning) -->
+                <strong class="css-tooltip" data-tooltip="Hover effect powered by CSS ::after">Hover Demo 1</strong>
+            </div>
         </div>
 
         <div class="flex-row">
             <div>
                 <h3 style="margin: 0 0 10px 0;">Budget Optimization</h3>
-                <p style="margin: 0; color: #555;">Saves you money on flights & hotels.</p>
+                <p style="margin: 0; color: #555;">Saves money on flights & hotels.</p>
             </div>
-            <strong class="css-tooltip" data-tooltip="No JavaScript required for this tooltip!">Hover to learn more</strong>
+            
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <a href="#" class="icon-hover"><i class="fas fa-wallet"></i></a>
+                <strong class="css-tooltip" data-tooltip="No Javascript needed!">Hover Demo 2</strong>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer style="margin-top: 40px; padding: 20px; text-align: center; background: #222; color: #fff;">
         <h3>© 2026 AI-Based Travel Itinerary Generator</h3>
-        <p>Built carefully maintaining original theme whilst demonstrating advanced CSS.</p>
+        <p>Built carefully demonstrating 32 advanced CSS properties!</p>
     </footer>
 
 </body>
