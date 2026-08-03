@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Req 13: Standard HTML5 document structure -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage & Itinerary Builder | AI-Travel</title>
+    <!-- Req 1: Professional Theme -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Modern Drag & Drop Theme Enhancements */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .builder-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .builder-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .builder-panel {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .builder-panel h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Req 5: Drag Source Styling */
+        .drag-items-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .draggable-item {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            cursor: grab;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            user-select: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .draggable-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .draggable-item:active {
+            cursor: grabbing;
+        }
+
+        /* Req 6: Drop Target Styling */
+        .drop-zone {
+            min-height: 250px;
+            border: 2px dashed rgba(14, 165, 233, 0.4);
+            border-radius: var(--radius-md);
+            background: rgba(15, 23, 42, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone.drag-over {
+            border-color: var(--warning);
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .empty-placeholder {
+            color: var(--text-muted);
+            text-align: center;
+            margin: auto;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        /* Dropped Items */
+        .dropped-item {
+            background: var(--surface-light);
+            padding: 10px 15px;
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Web Storage Styling */
+        .storage-forms {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .storage-input {
+            margin-bottom: 15px;
+        }
+
+        .data-display {
+            margin-top: 15px;
+            min-height: 50px;
+            padding: 15px;
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 3px solid var(--success);
+            border-radius: var(--radius-sm);
+            display: none;
+        }
+
+        .data-display.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Req 2 & 13: Header containing application title and logo -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="Logo">
+                <span class="logo-text">AI-Travel Planner</span>
+            </a>
+
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Req 3: Navigation Menu Links -->
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="storage.html" class="active">Storage</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#help">Help</a></li>
+                <!-- Back to register for smooth flow -->
+                <li><a href="register.html" class="btn btn-outline" style="padding: 6px 12px; margin-left: 10px;">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Req 13: Main Semantic Element -->
+    <main class="container" style="padding-top: 120px; padding-bottom: 80px;">
+
+        <!-- Req 4: Introduction Section with <article> -->
+        <section class="page-header">
+            <article>
+                <h1>Interactive Travel Experience</h1>
+                <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 10px auto;">
+                    Drag and drop to structure your theoretical itinerary. Safe and secure temporary session storage and permanent local storage APIs are implemented below.
+                </p>
+            </article>
+        </section>
+
+        <!-- Drag & Drop Arena -->
+        <section>
+            <h2 style="margin-bottom: 25px;"><i class="fas fa-hand-holding-box"></i> Assignment 4: Drag & Drop</h2>
+            
+            <div class="builder-grid">
+                
+                <!-- Req 5: Drag Source -->
+                <article class="builder-panel">
+                    <h3><i class="fas fa-layer-group"></i> Travel Components (Drag Source)</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">
+                        Select items and drag them onto your itinerary board.
+                    </p>
+                    
+                    <div class="drag-items-container">
+                        <!-- Add draggable="true" -->
+                        <div class="draggable-item" draggable="true" id="item-flight" data-content="Flight Booking">
+                            <i class="fas fa-plane"></i> Flight Booking
+                        </div>
+                        <div class="draggable-item" draggable="true" id="item-hotel" data-content="Hotel Registration">
+                            <i class="fas fa-bed"></i> Hotel Registration
+                        </div>
+                        <div class="draggable-item" draggable="true" id="item-sight" data-content="Sightseeing Tour">
+                            <i class="fas fa-camera"></i> Sightseeing Tour
+                        </div>
+                        <div class="draggable-item" draggable="true" id="item-taxi" data-content="Airport Transfer">
+                            <i class="fas fa-taxi"></i> Airport Transfer
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Req 6: Drop Target -->
+                <article class="builder-panel">
+                    <h3><i class="fas fa-map-marked-alt"></i> My Draft Itinerary (Drop Target)</h3>
+                    
+                    <!-- Drop Zone Element -->
+                    <div class="drop-zone" id="itinerary-dropzone">
+                        <div class="empty-placeholder" id="dropzone-placeholder">
+                            <i class="fas fa-arrow-down" style="font-size: 2rem; opacity: 0.5;"></i>
+                            Drop travel items here...
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-outline" id="clear-board" style="margin-top: 15px; width: 100%;">
+                        <i class="fas fa-eraser"></i> Clear Board
+                    </button>
+                </article>
+            </div>
+        </section>
+
+        <!-- Web Storage Section -->
+        <section>
+            <h2 style="margin-bottom: 25px; margin-top: 30px;"><i class="fas fa-database"></i> Assignment 4: Web Storage</h2>
+            
+            <div class="storage-forms">
+                <!-- Req 8: Local Storage -->
+                <article class="builder-panel">
+                    <h3><i class="fas fa-hdd"></i> Local Storage</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">
+                        Data stored here is permanent and will survive browser restarts.
+                    </p>
+                    
+                    <div class="storage-input">
+                        <label for="ls-key">Key / Identifier</label>
+                        <input type="text" id="ls-key" placeholder="e.g. favorite_destination">
+                    </div>
+                    <div class="storage-input">
+                        <label for="ls-value">Data Value</label>
+                        <input type="text" id="ls-value" placeholder="e.g. Paris, France">
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 25px; flex-wrap: wrap;">
+                        <button class="btn btn-primary" id="btn-ls-save" style="flex:1;"><i class="fas fa-save"></i> Save</button>
+                        <!-- Req 10: Retrieve Data -->
+                        <button class="btn btn-outline" id="btn-ls-get" style="flex:1;"><i class="fas fa-download"></i> Retrieve</button>
+                        <!-- Req 11: Clear Data -->
+                        <button class="btn btn-outline" id="btn-ls-clear" style="flex:1; border-color: var(--error); color: var(--error) !important;"><i class="fas fa-trash"></i> Delete</button>
+                    </div>
+
+                    <div class="data-display" id="ls-display"></div>
+                </article>
+
+                <!-- Req 9: Session Storage -->
+                <article class="builder-panel">
+                    <h3><i class="fas fa-memory"></i> Session Storage</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">
+                        Data stored here is temporary and cleared when closing the tab.
+                    </p>
+                    
+                    <div class="storage-input">
+                        <label for="ss-key">Key / Identifier</label>
+                        <input type="text" id="ss-key" placeholder="e.g. current_session_token">
+                    </div>
+                    <div class="storage-input">
+                        <label for="ss-value">Data Value</label>
+                        <input type="text" id="ss-value" placeholder="e.g. 192837465xyz">
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 25px; flex-wrap: wrap;">
+                        <button class="btn btn-primary" id="btn-ss-save" style="flex:1;"><i class="fas fa-save"></i> Save</button>
+                        <button class="btn btn-outline" id="btn-ss-get" style="flex:1;"><i class="fas fa-download"></i> Retrieve</button>
+                        <button class="btn btn-outline" id="btn-ss-clear" style="flex:1; border-color: var(--error); color: var(--error) !important;"><i class="fas fa-trash"></i> Delete</button>
+                    </div>
+
+                    <div class="data-display" id="ss-display"></div>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Req 12: Footer containing copyright, student name, institution, contact details -->
+    <footer>
+        <div class="container footer-content" style="text-align: center; padding: 30px 0;">
+            <p>&copy; 2026 AI-Travel Planner App | Built for Assignment Requirements</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">
+                <strong>Student Name:</strong> Dharshini Krishnasamy &nbsp;|&nbsp; 
+                <strong>Institution:</strong> Pondicherry Engineering College &nbsp;|&nbsp; 
+                <strong>Contact:</strong> dharshini@example.com
+            </p>
+        </div>
+    </footer>
+
+    <!-- Req 7 & logic for Drag & Drop / Storage -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ==========================================
+            // Req 7: DRAG & DROP EVENTS IMPLEMENTATION
+            // ==========================================
+            const draggables = document.querySelectorAll('.draggable-item');
+            const dropZone = document.getElementById('itinerary-dropzone');
+            const placeholder = document.getElementById('dropzone-placeholder');
+            const clearBoardBtn = document.getElementById('clear-board');
+
+            // 1. dragstart event
+            draggables.forEach(item => {
+                item.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', e.target.getAttribute('data-content'));
+                    
+                    // visual feedback
+                    setTimeout(() => {
+                        e.target.style.opacity = '0.5';
+                    }, 0);
+                });
+
+                item.addEventListener('dragend', (e) => {
+                    e.target.style.opacity = '1';
+                });
+            });
+
+            // 2. dragover event
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault(); // necessary to allow dropping
+                dropZone.classList.add('drag-over');
+            });
+
+            dropZone.addEventListener('dragleave', (e) => {
+                dropZone.classList.remove('drag-over');
+            });
+
+            // 3. drop event
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('drag-over');
+                
+                const data = e.dataTransfer.getData('text/plain');
+                if (data) {
+                    if (placeholder) placeholder.style.display = 'none';
+
+                    // Create new element on board
+                    const droppedItem = document.createElement('div');
+                    droppedItem.classList.add('dropped-item');
+                    droppedItem.innerHTML = `<i class="fas fa-check-circle" style="color: var(--success)"></i> ${data}`;
+                    
+                    dropZone.appendChild(droppedItem);
+                }
+            });
+
+            // Clear board assist
+            clearBoardBtn.addEventListener('click', () => {
+                const items = dropZone.querySelectorAll('.dropped-item');
+                items.forEach(item => item.remove());
+                if (placeholder) placeholder.style.display = 'flex';
+            });
+
+
+            // ==========================================
+            // Req 8-11: WEB STORAGE API
+            // ==========================================
+            
+            // Local Storage Logic
+            const lsKey = document.getElementById('ls-key');
+            const lsVal = document.getElementById('ls-value');
+            const lsDisplay = document.getElementById('ls-display');
+
+            document.getElementById('btn-ls-save').addEventListener('click', () => {
+                if (lsKey.value && lsVal.value) {
+                    localStorage.setItem(lsKey.value, lsVal.value);
+                    alert('Data gracefully saved to LocalStorage!');
+                    lsKey.value = ''; lsVal.value = '';
+                }
+            });
+
+            document.getElementById('btn-ls-get').addEventListener('click', () => {
+                if (lsKey.value) {
+                    const data = localStorage.getItem(lsKey.value);
+                    lsDisplay.classList.add('active');
+                    if(data !== null) {
+                        lsDisplay.innerHTML = `<strong>Data Found:</strong> ${data}`;
+                        lsDisplay.style.borderLeftColor = 'var(--success)';
+                    } else {
+                        lsDisplay.innerHTML = `<em>No data found for key: "${lsKey.value}"</em>`;
+                        lsDisplay.style.borderLeftColor = 'var(--warning)';
+                    }
+                }
+            });
+
+            document.getElementById('btn-ls-clear').addEventListener('click', () => {
+                if (lsKey.value) {
+                    localStorage.removeItem(lsKey.value);
+                    alert('Specific key deleted from LocalStorage!');
+                } else {
+                    localStorage.clear();
+                    alert('All LocalStorage data cleared!');
+                }
+                lsDisplay.classList.remove('active');
+                lsKey.value = ''; lsVal.value = '';
+            });
+
+            // Session Storage Logic
+            const ssKey = document.getElementById('ss-key');
+            const ssVal = document.getElementById('ss-value');
+            const ssDisplay = document.getElementById('ss-display');
+
+            document.getElementById('btn-ss-save').addEventListener('click', () => {
+                if (ssKey.value && ssVal.value) {
+                    sessionStorage.setItem(ssKey.value, ssVal.value);
+                    alert('Data saved to ephemeral SessionStorage!');
+                    ssKey.value = ''; ssVal.value = '';
+                }
+            });
+
+            document.getElementById('btn-ss-get').addEventListener('click', () => {
+                if (ssKey.value) {
+                    const data = sessionStorage.getItem(ssKey.value);
+                    ssDisplay.classList.add('active');
+                    if(data !== null) {
+                        ssDisplay.innerHTML = `<strong>Data Found:</strong> ${data}`;
+                        ssDisplay.style.borderLeftColor = 'var(--success)';
+                    } else {
+                        ssDisplay.innerHTML = `<em>No data found for key: "${ssKey.value}"</em>`;
+                        ssDisplay.style.borderLeftColor = 'var(--warning)';
+                    }
+                }
+            });
+
+            document.getElementById('btn-ss-clear').addEventListener('click', () => {
+                if (ssKey.value) {
+                    sessionStorage.removeItem(ssKey.value);
+                    alert('Specific key deleted from SessionStorage!');
+                } else {
+                    sessionStorage.clear();
+                    alert('All SessionStorage data cleared!');
+                }
+                ssDisplay.classList.remove('active');
+                ssKey.value = ''; ssVal.value = '';
+            });
+        });
+    </script>
+</body>
+</html>
