@@ -5,16 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI-Based Travel Itinerary Generator</title>
+    <!-- Req 28: CSS Icons (Font Awesome Integration) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- SIR/PROFESSOR: 1. EXTERNAL CSS -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- SIR/PROFESSOR: 2. INTERNAL CSS -->
+    <style>
+        /* Specific internal styling overriding or adding to the page just for demonstration */
+        body {
+            border-top: 5px solid #2563eb;
+        }
+        .highlight-text {
+            background-color: #ffeb3b; /* Highlighted manually internally */
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
 </head>
 
 <body>
 
     <!-- Navigation -->
-
     <nav>
         <div class="logo">
-            AI Travel Planner
+            <i class="fas fa-plane-departure"></i> AI Travel Planner
         </div>
 
         <ul>
@@ -30,10 +46,10 @@
     </nav>
 
     <!-- Hero Section -->
-
     <section class="hero" id="home">
 
-        <div class="hero-content">
+        <!-- SIR/PROFESSOR: 3. INLINE CSS (Padding injected inline) -->
+        <div class="hero-content" style="padding: 20px; text-shadow: 2px 2px 5px rgba(0,0,0,0.8);">
             <h1>AI-Based Travel Itinerary Generator</h1>
 
             <p>
@@ -42,204 +58,150 @@
                 destination, duration and interests.
             </p>
 
-            <button>Explore Dashboard</button>
+            <button class="btn-primary">Explore Dashboard</button>
         </div>
 
     </section>
 
     <!-- Student Details -->
-
     <section class="student">
         <h2>Project Information</h2>
 
         <p><strong>Student Name:</strong> Dharshini Krishnasamy</p>
         <p><strong>Register Number:</strong> 23ITXXX</p>
 
-        <p>
+        <p class="highlight-text">
             This application automatically creates optimized travel
             itineraries using AI recommendation techniques.
         </p>
     </section>
 
     <!-- Dashboard -->
-
     <section id="dashboard">
 
         <h2>Dashboard Overview</h2>
 
         <div class="cards">
-
             <div class="card">
+                <!-- Req 28: Font Awesome Icon -->
+                <div class="icon-box"><i class="fas fa-users"></i></div>
                 <h1>12,500</h1>
                 <p>Total Users</p>
+                <!-- Req 31: CSS Progress Bar -->
+                <div class="stat-progress"><div class="stat-fill"></div></div>
             </div>
 
             <div class="card">
+                <div class="icon-box"><i class="fas fa-user-check"></i></div>
                 <h1>8,750</h1>
                 <p>Active Users</p>
+                <div class="stat-progress"><div class="stat-fill" style="width: 70%;"></div></div>
             </div>
 
             <div class="card">
+                <div class="icon-box"><i class="fas fa-wallet"></i></div>
                 <h1>₹4.5 Lakh</h1>
                 <p>Revenue</p>
+                <div class="stat-progress"><div class="stat-fill" style="width: 90%;"></div></div>
             </div>
 
             <div class="card">
+                <div class="icon-box"><i class="fas fa-chart-line"></i></div>
                 <h1>3200</h1>
                 <p>Transactions</p>
+                <div class="stat-progress"><div class="stat-fill" style="width: 50%;"></div></div>
             </div>
-
-            <div class="card">
-                <h1>45</h1>
-                <p>Notifications</p>
-            </div>
-
-            <div class="card">
-                <h1>12</h1>
-                <p>Pending Tasks</p>
-            </div>
-
         </div>
 
     </section>
 
     <!-- Features -->
-
     <section id="features">
 
         <h2>Key Features</h2>
+        <p>Hover over the highlighted word to see our <span class="css-tooltip" data-tip="Powered purely by pseudo CSS ::after!">Req 32 Tooltip Demo</span>.</p>
 
-        <ul>
-            <li>AI Powered Travel Recommendations</li>
-            <li>Budget Optimization</li>
-            <li>Smart Destination Suggestions</li>
-            <li>Weather-Based Planning</li>
-            <li>Hotel Recommendations</li>
-            <li>Travel Analytics Dashboard</li>
+        <ul style="list-style: none; margin-top: 15px;">
+            <li><i class="fas fa-robot" style="color:#2563eb"></i> AI Powered Travel Recommendations</li>
+            <li><i class="fas fa-piggy-bank" style="color:#2563eb"></i> Budget Optimization</li>
+            <li><i class="fas fa-map-marked-alt" style="color:#2563eb"></i> Smart Destination Suggestions</li>
+            <li><i class="fas fa-cloud-sun" style="color:#2563eb"></i> Weather-Based Planning</li>
+            <li><i class="fas fa-hotel" style="color:#2563eb"></i> Hotel Recommendations</li>
         </ul>
 
     </section>
 
-    <!-- Services -->
-
+    <!-- Services / Photo Gallery Req -->
     <section id="services">
-
-        <h2>Services</h2>
-
-        <ol>
-            <li>Travel Itinerary Generation</li>
-            <li>Hotel Planning</li>
-            <li>Transport Suggestions</li>
-            <li>Tourist Attraction Discovery</li>
-            <li>Expense Estimation</li>
-            <li>Emergency Assistance</li>
-        </ol>
-
+        <h2>Popular Destinations (Image Hover Demo)</h2>
+        <p>Watch Req 29 (Zoom, Blur removal, Grayscale removal) in action on these cards!</p>
+        
+        <div class="gallery">
+            <div class="gallery-img-container">
+                <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=400&q=80" alt="Tokyo">
+            </div>
+            <div class="gallery-img-container">
+                <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=400&q=80" alt="Paris">
+            </div>
+            <div class="gallery-img-container">
+                <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=400&q=80" alt="New York">
+            </div>
+        </div>
     </section>
 
     <!-- Updates -->
-
-    <section>
-
+    <section style="padding: 20px 60px;">
         <marquee>
             ✈ New Travel Packages Available |
             🌍 AI Recommendation Engine Updated |
             🏨 Hotel Suggestions Improved |
             📈 Travel Analytics Released
         </marquee>
-
     </section>
 
     <!-- Modules -->
-
     <section id="reports">
-
         <h2>Application Modules</h2>
-
         <table>
-
             <tr>
                 <th>Module ID</th>
                 <th>Module Name</th>
                 <th>Description</th>
             </tr>
-
             <tr>
                 <td>M101</td>
                 <td>User Management</td>
                 <td>User Registration and Login</td>
             </tr>
-
             <tr>
                 <td>M102</td>
                 <td>AI Engine</td>
                 <td>Generates Personalized Plans</td>
             </tr>
-
             <tr>
                 <td>M103</td>
                 <td>Booking System</td>
                 <td>Travel Booking Support</td>
             </tr>
-
             <tr>
                 <td>M104</td>
                 <td>Analytics</td>
                 <td>Travel Insights</td>
             </tr>
-
         </table>
-
-    </section>
-
-    <!-- Registration Form -->
-
-    <section>
-
-        <h2>User Registration</h2>
-
-        <form>
-
-            <input type="text" placeholder="Full Name">
-
-            <input type="email" placeholder="Email Address">
-
-            <input type="tel" placeholder="Phone Number">
-
-            <input type="password" placeholder="Password">
-
-            <input type="date">
-
-            <textarea placeholder="Address"></textarea>
-
-            <button type="submit">Register</button>
-
-            <button type="reset">Reset</button>
-
-        </form>
-
     </section>
 
     <!-- Contact -->
-
     <section id="contact">
-
         <h2>Contact Information</h2>
-
-        <p>Email : support@aitravelplanner.com</p>
-
-        <p>Phone : +91 9876543210</p>
-
-        <p>Address : Puducherry, India</p>
-
+        <p><i class="fas fa-envelope"></i> Email : support@aitravelplanner.com</p>
+        <p><i class="fas fa-phone-alt"></i> Phone : +91 9876543210</p>
+        <p><i class="fas fa-map-marker-alt"></i> Address : Puducherry, India</p>
     </section>
 
     <footer>
-
-        <h3>© 2026 AI-Based Travel Itinerary Generator</h3>
-
+        <h3>© 2026 AI-Based Travel Itinerary</h3>
         <p>Designed by Dharshini Krishnasamy</p>
-
     </footer>
 
 </body>

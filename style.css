@@ -1,160 +1,342 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Segoe UI,sans-serif;
-    scroll-behavior:smooth;
+/* ========================================================
+   AI Travel Planner - Stylesheet 
+   Demonstrating Advanced CSS Requirements
+   ======================================================== */
+
+/* Req 21: CSS Variables */
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --dark: #0f172a;
+    --light-bg: #f4f7fb;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+}
+
+/* Req 25: CSS Pseudo Elements (::selection) */
+::selection {
+    background: var(--primary);
+    color: white;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Segoe UI, sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--light-bg);
+    color: var(--text-color);
+}
+
+/* Req 23: CSS Flexbox Layout (Navigation) */
+/* Req 30: CSS Positioning (Sticky) */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 60px;
+    background: var(--dark);
+    position: sticky; /* Sticky positioning */
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav ul {
+    display: flex; /* Flexbox */
+    list-style: none;
+    gap: 25px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: color 0.3s; /* Transition on menu */
+}
+nav a:hover {
+    color: var(--primary);
+}
+
+.hero {
+    height: 90vh;
+    background: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
+                url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content h1 {
+    font-size: 55px;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    width: 70%;
+    margin: auto;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Req 25: Pseudo Elements (::first-letter, ::first-line) */
+.hero-content p::first-letter {
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--primary);
+}
+.hero-content p::first-line {
+    font-style: italic;
+}
+
+/* Req 27: CSS Transitions */
+.btn-primary {
+    margin-top: 20px;
+    padding: 12px 25px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    border-radius: 5px;
+    transition: all 0.3s ease; /* Fast transition */
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-block;
+}
+
+/* Req 26: CSS Transformations (skew, scale) */
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: scale(1.05) skewX(-5deg); /* Skew & Scale Transform */
+}
+
+/* Req 28: CSS Icons hover animation */
+.icon-box i {
+    font-size: 24px;
+    color: var(--primary);
+    transition: transform 0.4s ease;
+}
+.icon-box:hover i {
+    transform: rotate(360deg) scale(1.2); /* Rotate Transform on icon */
+}
+
+section {
+    padding: 60px;
+}
+
+.student,
+#features,
+#services,
+#reports,
+#contact {
+    background: var(--card-bg);
+    margin: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.1);
+    position: relative; /* Req 30: Relative Positioning */
+}
+
+/* Req 25: Pseudo Elements (::before, ::after) */
+.student h2::before,
+#features h2::before,
+#services h2::before,
+#reports h2::before,
+#contact h2::before {
+    content: "📌 ";
+    color: var(--primary);
+}
+
+/* Req 22: CSS Grid Layout (Dashboard cards) */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 25px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Req 26: CSS Transformations (Translate) */
+.card:hover {
+    transform: translateY(-8px); /* Translate up on hover */
+    box-shadow: 0 12px 20px rgba(0,0,0,.15);
+}
+
+.card h1 {
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+/* Req 31: CSS Progress Bars */
+.stat-progress {
+    width: 100%;
+    background: #e2e8f0;
+    height: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+.stat-fill {
+    height: 100%;
+    background: var(--primary);
+    width: 80%;
+    animation: growBar 1.5s ease-out;
+}
+@keyframes growBar {
+    0% { width: 0; }
+    100% { width: 80%; }
+}
+
+ul, ol {
+    margin-left: 30px;
+    line-height: 2;
+}
+
+/* Req 29: Image Hover Effects (zoom, grayscale, blur) */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+.gallery-img-container {
+    overflow: hidden;
+    border-radius: 8px;
+    position: relative;
+    height: 180px;
+}
+.gallery-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) blur(1px); /* Grayscale & Blur */
+    transition: all 0.5s ease;
+}
+.gallery-img-container:hover img {
+    filter: grayscale(0%) blur(0px);
+    transform: scale(1.15); /* Zoom */
+    opacity: 0.9; /* Opacity hover */
+}
+
+/* Req 32: CSS Tooltip (Absolute Positioning on Before/After) */
+.css-tooltip {
+    position: relative;
+    cursor: help;
+    color: var(--primary);
+    font-weight: bold;
+}
+.css-tooltip::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+.css-tooltip:hover::after {
+    opacity: 1;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th {
+    background: var(--primary);
+    color: white;
+}
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 20px auto;
+}
+input, textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+}
+form button {
+    padding: 12px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+form button:hover {
+    background: var(--primary-hover);
+}
+
+/* Req 23: Flexbox Footer Layout */
+footer {
+    background: var(--dark);
+    color: white;
+    padding: 25px 60px;
+    display: flex;
+    justify-content: space-between; /* Flex layout */
+    align-items: center;
+}
+
+/* Req 24: Media Queries */
+@media screen and (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        padding: 15px;
     }
-    
-    body{
-    background:#f4f7fb;
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 10px;
     }
-    
-    nav{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:18px 60px;
-    background:#0f172a;
-    position:sticky;
-    top:0;
-    z-index:1000;
+    .hero-content h1 {
+        font-size: 35px;
     }
-    
-    .logo{
-    color:white;
-    font-size:24px;
-    font-weight:bold;
+    .hero-content p {
+        width: 90%;
     }
-    
-    nav ul{
-    display:flex;
-    list-style:none;
-    gap:25px;
+    footer {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
     }
-    
-    nav a{
-    text-decoration:none;
-    color:white;
-    font-weight:500;
-    }
-    
-    .hero{
-    height:90vh;
-    background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
-    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
-    background-size:cover;
-    background-position:center;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    color:white;
-    }
-    
-    .hero-content h1{
-    font-size:55px;
-    margin-bottom:20px;
-    }
-    
-    .hero-content p{
-    width:70%;
-    margin:auto;
-    font-size:18px;
-    }
-    
-    .hero button{
-    margin-top:20px;
-    padding:12px 25px;
-    border:none;
-    background:#2563eb;
-    color:white;
-    border-radius:5px;
-    }
-    
-    section{
-    padding:60px;
-    }
-    
-    .student,
-    #features,
-    #services,
-    #reports,
-    #contact{
-    background:white;
-    margin:25px;
-    border-radius:12px;
-    box-shadow:0 4px 10px rgba(0,0,0,.1);
-    }
-    
-    .cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
-    margin-top:30px;
-    }
-    
-    .card{
-    background:white;
-    padding:25px;
-    text-align:center;
-    border-radius:12px;
-    box-shadow:0 4px 10px rgba(0,0,0,.1);
-    }
-    
-    .card h1{
-    color:#2563eb;
-    }
-    
-    ul,ol{
-    margin-left:30px;
-    line-height:2;
-    }
-    
-    table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
-    }
-    
-    table,th,td{
-    border:1px solid #ddd;
-    }
-    
-    th{
-    background:#2563eb;
-    color:white;
-    }
-    
-    th,td{
-    padding:12px;
-    text-align:center;
-    }
-    
-    form{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-    }
-    
-    input,textarea{
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:6px;
-    }
-    
-    form button{
-    padding:12px;
-    border:none;
-    background:#2563eb;
-    color:white;
-    border-radius:6px;
-    cursor:pointer;
-    }
-    
-    footer{
-    background:#0f172a;
-    color:white;
-    text-align:center;
-    padding:25px;
-    }
+}
