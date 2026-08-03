@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Based Travel Itinerary Generator - Advanced CSS</title>
+    
+    <!-- SIR/PROFESSOR: This demonstrates EXTERNAL CSS (Req: External Stylesheet) -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- SIR/PROFESSOR: This demonstrates INTERNAL CSS (Req: Internal Stylesheet) -->
+    <style>
+        /* Advanced CSS Requirements Demonstrated Here */
+        
+        /* 1. CSS Variables */
+        :root {
+            --primary-accent: #0ea5e9;
+            --hover-color: #0284c7;
+        }
+
+        /* 2. Pseudo-elements ::before and ::after */
+        .advanced-title::before {
+            content: "✨ ";
+            color: var(--primary-accent);
+        }
+        .advanced-title::after {
+            content: " ✨";
+            color: var(--primary-accent);
+        }
+
+        /* 3. CSS Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* 4. CSS Flexbox */
+        .flex-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* 5. CSS Transformations & Transitions */
+        .hover-zoom {
+            transition: transform 0.3s ease;
+        }
+        .hover-zoom:hover {
+            transform: scale(1.05) rotate(1deg); /* Scale and Rotate Transform */
+        }
+
+        /* 6. CSS Positioning (Sticky) */
+        .sticky-notice {
+            position: sticky;
+            top: 60px; /* Sticks just under the nav */
+            z-index: 100;
+            background: #ffcc00;
+            color: #333;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* 7. CSS Progress Bar */
+        .css-progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .css-progress-fill {
+            height: 20px;
+            background-color: var(--primary-accent);
+            width: 85%; /* 85% filled */
+            animation: loadProgress 2s ease-out; /* 8. CSS Animations */
+        }
+
+        @keyframes loadProgress {
+            from { width: 0; }
+            to { width: 85%; }
+        }
+
+        /* 9. Pure CSS Tooltip */
+        .css-tooltip {
+            position: relative;
+            cursor: pointer;
+            color: var(--primary-accent);
+            text-decoration: underline;
+        }
+        .css-tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .css-tooltip:hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation (From existing style.css) -->
+    <nav>
+        <div class="logo">AI Travel Planner</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#dashboard">Dashboard</a></li>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="storage.html">Storage</a></li>
+            <li><a href="register.html">Register</a></li>
+            <li><a href="assignment5.html" style="color: #0ea5e9; font-weight: bold;">Advanced CSS</a></li>
+        </ul>
+    </nav>
+
+    <!-- SIR/PROFESSOR: This demonstrates INLINE CSS (Req: Inline Stylesheet) -->
+    <!-- Also demonstrates sticky positioning from Internal CSS -->
+    <div class="sticky-notice" style="border-bottom: 3px solid #e6b800; text-transform: uppercase;">
+        Note: This page demonstrates Inline, Internal, and External CSS using Advanced properties!
+    </div>
+
+    <!-- Hero Section -->
+    <!-- Advanced Inline CSS Example -->
+    <section class="hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/travel-bg.jpg') center/cover; padding: 100px 20px;">
+        <div class="hero-content">
+            <!-- Using internal CSS pseudo elements class -->
+            <h1 class="advanced-title" style="font-size: 3rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Explore Advanced Features</h1>
+            <p style="font-style: italic; letter-spacing: 1px;">
+                Showcasing Grid, Flexbox, Animations, and Transforms within the AI Travel ecosystem.
+            </p>
+        </div>
+    </section>
+
+    <!-- Dashboard: Demonstrating CSS Grid & Transforms -->
+    <section id="dashboard" style="padding: 40px 20px;">
+        <h2 style="text-align: center; margin-bottom: 30px;">CSS Grid & Transforms</h2>
+        
+        <div class="grid-container">
+            <!-- Card 1 -->
+            <div class="card hover-zoom" style="background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                <h1 style="color: #0ea5e9;">Tokyo</h1>
+                <p>Popular Destination</p>
+                <div class="css-progress-bar">
+                    <div class="css-progress-fill" style="width: 95%;"></div>
+                </div>
+                <small>Demand: 95%</small>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card hover-zoom" style="background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                <h1 style="color: #0ea5e9;">Paris</h1>
+                <p>Trending AI Match</p>
+                <div class="css-progress-bar">
+                    <div class="css-progress-fill" style="width: 80%; background-color: #10b981;"></div>
+                </div>
+                <small>Demand: 80%</small>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card hover-zoom" style="background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                <h1 style="color: #0ea5e9;">New York</h1>
+                <p>Business Travel</p>
+                <div class="css-progress-bar">
+                    <div class="css-progress-fill" style="width: 70%; background-color: #f59e0b;"></div>
+                </div>
+                <small>Demand: 70%</small>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services: Demonstrating Flexbox & Tooltips -->
+    <section id="services" style="padding: 40px 20px; max-width: 900px; margin: auto;">
+        <h2 style="text-align: center; margin-bottom: 30px;">CSS Flexbox & Tooltips</h2>
+
+        <div class="flex-row">
+            <div>
+                <h3 style="margin: 0 0 10px 0;">Smart Itinerary Planning</h3>
+                <p style="margin: 0; color: #555;">AI handles the scheduling automatically.</p>
+            </div>
+            <!-- Pure CSS Tooltip -->
+            <strong class="css-tooltip" data-tooltip="Hover effect powered by CSS ::after">Hover to learn more</strong>
+        </div>
+
+        <div class="flex-row">
+            <div>
+                <h3 style="margin: 0 0 10px 0;">Budget Optimization</h3>
+                <p style="margin: 0; color: #555;">Saves you money on flights & hotels.</p>
+            </div>
+            <strong class="css-tooltip" data-tooltip="No JavaScript required for this tooltip!">Hover to learn more</strong>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top: 40px; padding: 20px; text-align: center; background: #222; color: #fff;">
+        <h3>© 2026 AI-Based Travel Itinerary Generator</h3>
+        <p>Built carefully maintaining original theme whilst demonstrating advanced CSS.</p>
+    </footer>
+
+</body>
+</html>
