@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        ============================================================
+        Assignment: Design a Webpage using Basic CSS Tags.
+        Demonstrates: Inline CSS, Internal CSS, External CSS
+        Author: Dharshini Krishnasamy
+        ============================================================
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Spice Garden — Premium Indian Restaurant | Online Reservation & More">
+    <title>Spice Garden Restaurant</title>
+
+    <!-- Req 28: Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts for Professional Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap">
+
+    <!-- EXTERNAL STYLESHEET (Req: External CSS) -->
+    <link rel="stylesheet" href="css/restaurant.css">
+
+    <!-- INTERNAL STYLESHEET (Req: Internal CSS) -->
+    <style>
+        /* ============================================
+           INTERNAL CSS — section-specific styles
+        ============================================ */
+
+        /* Req 3: Hero specialties & vision/mission */
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hero-badge {
+            padding: 8px 18px;
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 30px;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.85);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Req 5: Statistics section */
+        #stats {
+            background: linear-gradient(135deg, #1a0800 0%, #2c1003 50%, #1a0800 100%);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Req 31: Progress bars section */
+        #progress-section {
+            background: var(--surface);
+        }
+
+        .progress-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Req 29: Image Gallery hover effects */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius);
+            aspect-ratio: 1;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Req 27: CSS transition on images */
+            transition: transform 0.45s ease, filter 0.45s ease;
+        }
+
+        /* Req 29: Zoom + overlay image hover */
+        .gallery-item:hover img {
+            transform: scale(1.12);
+            filter: brightness(0.6) saturate(1.3);
+        }
+
+        /* Req 29: Overlay text on image hover */
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        /* Req 25: ::first-line on article summary */
+        .vm-text::first-line {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.05em;
+        }
+
+        /* Req 26: Typed skew banner strip */
+        .promo-strip {
+            background: var(--primary);
+            padding: 10px 0;
+            text-align: center;
+            font-size: 0.88rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            /* Req 26: skewY transform on child */
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Req 10: Promo Strip (inline style demo) -->
+    <!-- INLINE CSS (Req: Inline CSS) demonstrated on the promo strip -->
+    <div class="promo-strip" style="position: sticky; top: 0; z-index: 1001;">
+        🎉 Special Offer: 20% OFF on all Buffets this Weekend! | Call: +91 98765 43210
+    </div>
+
+    <!-- Req 2 & 13: <header> — Navigation Bar -->
+    <header>
+        <nav class="container">
+            <!-- Logo — Inline style to show brand color -->
+            <a href="#home" class="logo-text" style="text-decoration: none;">
+                <i class="fas fa-pepper-hot"></i> Spice Garden
+            </a>
+
+            <!-- Hamburger -->
+            <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Req 2: Navigation Links -->
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#chefs">Chefs</a></li>
+                <li><a href="#reservation">Reservations</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+
+                <!-- Req 9: Date & time -->
+                <li style="color: var(--text-muted); font-size: 0.8rem; white-space: nowrap;" id="datetime-display"></li>
+
+                <!-- Req 10: Theme switcher -->
+                <li>
+                    <button class="theme-btn has-tooltip" id="theme-btn" data-tip="Toggle Light/Dark">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+
+                <!-- Req 11: Notification panel -->
+                <li class="notif-wrapper">
+                    <button class="notif-btn" id="notif-btn" style="position: relative;">
+                        <i class="fas fa-bell"></i>
+                        <span class="notif-badge">3</span>
+                    </button>
+                    <div class="notif-panel" id="notif-panel">
+                        <div class="notif-header">
+                            <span>Notifications</span>
+                            <span style="font-size: 0.75rem; color: var(--primary); cursor: pointer;">Mark read</span>
+                        </div>
+                        <ul class="notif-list">
+                            <li><strong>🍛 Today's Special:</strong> Mutton Biryani, Paneer Butter Masala.</li>
+                            <li><strong>✅ Confirmed:</strong> Your table for 4 on Aug 3 is ready!</li>
+                            <li><strong>🎉 Offer:</strong> Family Feast Combo at ₹999 only!</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="#reservation" class="btn btn-primary" style="padding: 9px 18px; font-size: 0.85rem;">
+                        <i class="fas fa-calendar-check"></i> Reserve Table
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ============================================================
+         Req 3: WELCOME BANNER — Hero Section
+    ============================================================ -->
+    <section class="hero" id="home">
+        <div class="hero-content container">
+            <!-- Inline style for letter-spacing on restaurant name -->
+            <h1 style="letter-spacing: 3px;">
+                Spice <span>Garden</span>
+            </h1>
+            <p class="hero-tagline typing-cursor">Authentic Flavours. Timeless Memories.</p>
+            <div class="hero-offer">
+                <i class="fas fa-tag"></i> 20% OFF on Weekend Buffets — Ends Sunday!
+            </div>
+
+            <!-- Vision, Mission, Specialties as badges -->
+            <div class="hero-badges">
+                <span class="hero-badge"><i class="fas fa-star"></i> Award-Winning Chefs</span>
+                <span class="hero-badge"><i class="fas fa-leaf"></i> Farm-to-Table Freshness</span>
+                <span class="hero-badge"><i class="fas fa-fire-burner"></i> Authentic Tandoor Kitchen</span>
+                <span class="hero-badge"><i class="fas fa-crown"></i> Premium Dining Experience</span>
+            </div>
+
+            <div style="margin-top: 30px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="#reservation" class="btn btn-primary has-tooltip" data-tip="Book your table now!">
+                    <i class="fas fa-calendar-alt"></i> Reserve a Table
+                </a>
+                <a href="#menu" class="btn btn-secondary has-tooltip" data-tip="Explore our dishes">
+                    <i class="fas fa-utensils"></i> View Menu
+                </a>
+            </div>
+
+            <!-- Req 9: Date & Time display in hero -->
+            <p id="datetime-display" style="margin-top: 20px; font-size: 0.9rem;"></p>
+        </div>
+    </section>
+
+    <!-- Vision & Mission article -->
+    <section style="padding: 50px 0; background: var(--surface);">
+        <div class="container" style="max-width: 900px; text-align: center;">
+            <h2 style="font-size: 2rem; margin-bottom: 20px;">Our Vision &amp; Mission</h2>
+            <div class="section-title-line" style="margin: 0 auto 30px;"></div>
+            <p class="vm-text" style="color: var(--text-muted); font-size: 1rem; line-height: 2;">
+                Vision: To be India's most beloved restaurant chain, serving authentic regional flavours with modern hospitality.
+                Our Mission is to source the freshest local ingredients, cultivate talented chefs, and deliver every guest
+                an unforgettable dining experience — from the very first aroma to the final dessert.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         Req 4 & 5: DASHBOARD CARDS & DYNAMIC STATISTICS
+    ============================================================ -->
+    <section id="stats">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 44px;">
+                <h2 style="font-size: 2.2rem;">Live Dashboard</h2>
+                <div class="section-title-line" style="margin: 12px auto 0;"></div>
+            </div>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <i class="fas fa-chair stat-icon"></i>
+                    <div class="value animate-counter" data-target="24" data-suffix="">--</div>
+                    <h3>Available Tables</h3>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-receipt stat-icon"></i>
+                    <div class="value animate-counter" data-target="148" data-suffix="+">--</div>
+                    <h3>Today's Orders</h3>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-fire stat-icon bounce"></i>
+                    <div class="value animate-counter" data-target="32" data-suffix="">--</div>
+                    <h3>Popular Dishes</h3>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-star stat-icon"></i>
+                    <div class="value animate-counter" data-target="4.9" data-suffix="" data-float="true">--</div>
+                    <h3>Customer Rating</h3>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users stat-icon"></i>
+                    <div class="value animate-counter" data-target="312" data-suffix="+">--</div>
+                    <h3>Today's Visitors</h3>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-indian-rupee-sign stat-icon"></i>
+                    <div class="value animate-counter" data-target="87400" data-suffix="">--</div>
+                    <h3>Revenue (₹)</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         Req 31: CSS PROGRESS BARS — dish popularity
+    ============================================================ -->
+    <section id="progress-section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 2rem;">Dish Popularity</h2>
+                <div class="section-title-line" style="margin: 12px auto 0;"></div>
+            </div>
+            <div class="progress-wrapper">
+                <div class="progress-title"><span>🍛 Chicken Biryani</span><span>92%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="--target-w: 92%;"></div></div>
+
+                <div class="progress-title"><span>🥘 Paneer Butter Masala</span><span>85%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="--target-w: 85%;"></div></div>
+
+                <div class="progress-title"><span>🍢 Tandoori Prawns</span><span>78%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="--target-w: 78%;"></div></div>
+
+                <div class="progress-title"><span>🍮 Gulab Jamun</span><span>70%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="--target-w: 70%;"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         Req 6: FEATURES SECTION
+    ============================================================ -->
+    <section id="menu">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 44px;">
+                <h2 style="font-size: 2.2rem;">Why Choose Spice Garden?</h2>
+                <div class="section-title-line" style="margin: 12px auto 0;"></div>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Online Reservation</h3>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 10px;">Book a table anytime, anywhere in seconds.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-motorcycle"></i>
+                    <h3>Home Delivery</h3>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 10px;">Hot meals at your door within 45 minutes.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-kitchen-set"></i>
+                    <h3>Live Kitchen</h3>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 10px;">Watch our chefs craft your meal in real time.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-champagne-glasses"></i>
+                    <h3>Party Hall</h3>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 10px;">Fully-equipped private banquet for 200+ guests.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-qrcode"></i>
+                    <h3>Digital Payment</h3>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 10px;">Pay via UPI, card, or wallet — zero hassle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         Req 7: SERVICES SECTION
+    ============================================================ -->
+    <section style="background: var(--surface); padding: 80px 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 44px;">
+                <h2 style="font-size: 2.2rem;">Our Services</h2>
+                <div class="section-title-line" style="margin: 12px auto 0;"></div>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-concierge-bell"></i>
+                    <h3>Dine-In</h3>
+                    <p style="color: var(--text-muted); font-size: 0.87rem; margin-top: 10px;">Elegant seating with warm hospitality. Open 11 AM – 11 PM.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-box-open"></i>
+                    <h3>Takeaway</h3>
+                    <p style="color: var(--text-muted); font-size: 0.87rem; margin-top: 10px;">Pack your favourite dishes and enjoy at home.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-truck-fast"></i>
+                    <h3>Online Delivery</h3>
+                    <p style="color: var(--text-muted); font-size: 0.87rem; margin-top: 10px;">Order via app or website. Available on Swiggy & Zomato.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-bowl-food"></i>
+                    <h3>Catering</h3>
+                    <p style="color: var(--text-muted); font-size: 0.87rem; margin-top: 10px;">Corporate & social event catering with authentic menus.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-music"></i>
+                    <h3>Event Booking</h3>
+                    <p style="color: var(--text-muted); font-size: 0.87rem; margin-top: 10px;">Birthdays, anniversaries, and corporate dinners arranged.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         Req 8: IMAGE / BANNER SLIDER
+    ============================================================ -->
+    <section id="gallery" style="padding: 80px 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 2.2rem;">Our Gallery</h2>
+                <div class="section-title-line" style="margin: 12px auto 0;"></div>
+            </div>
+
+            <!-- Banner Slider -->
+            <div class="slider-container" style="margin-bottom: 50px;">
+                <div class="slider-wrapper" id="slider-wrapper">
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200" alt="Restaurant Interior">
+                        <div class="slide-caption"><h3>Elegant Dining Hall</h3><p>Designed for the finest experience</p></div>
+                    </div>
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200" alt="Special Dish">
+                        <div class="slide-caption"><h3>Chef's Special Biryani</h3><p>Aromatic spices, slow-cooked perfection</p></div>
+                    </div>
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=1200" alt="Chef at work">
+                        <div class="slide-caption"><h3>Our Master Chefs</h3><p>Crafting magic in the live kitchen</p></div>
+                    </div>
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1200" alt="Event">
+                        <div class="slide-caption"><h3>Private Events</h3><p>Unforgettable evenings for every occasion</p></div>
+                    </div>
+                </div>
+                <button class="slider-btn" id="prev-slide"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn" id="next-slide"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots" id="slider-dots"></div>
+            </div>
+
+            <!-- Req 29: Image Gallery with CSS hover effects -->
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400" alt="Paneer Masala">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400" alt="Naan">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1567337710282-00832b415979?w=400" alt="Fine dining">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=400" alt="Steak">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=400" alt="Dessert">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400" alt="Food spread">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         Req 12 & 13: RESERVATION FORM with Validation
+    ============================================================ -->
+    <section id="reservation" style="background: var(--surface);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 44px;">
+                <h2 style="font-size: 2.2rem;">Reserve Your Table</h2>
+                <div class="section-title-line" style="margin: 12px auto 0;"></div>
+                <p style="color: var(--text-muted); margin-top: 14px; font-size: 0.95rem;">
+                    Fields marked <span style="color: var(--error);">*</span> are required.
+                </p>
+            </div>
+
+            <form class="res-form" id="res-form" novalidate>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="res-name">Customer Name <span class="req-star">*</span></label>
+                        <input type="text" id="res-name" placeholder="e.g. Dharshini" autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="res-email">Email <span class="req-star">*</span></label>
+                        <input type="email" id="res-email" placeholder="e.g. dharshini@email.com" autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="res-phone">Phone <span class="req-star">*</span></label>
+                        <input type="tel" id="res-phone" placeholder="+91 98765 43210" autocomplete="tel">
+                    </div>
+                    <div class="form-group">
+                        <label for="res-guests">Number of Guests <span class="req-star">*</span></label>
+                        <input type="number" id="res-guests" min="1" max="20" placeholder="e.g. 4">
+                    </div>
+                    <div class="form-group">
+                        <label for="res-date">Reservation Date <span class="req-star">*</span></label>
+                        <input type="date" id="res-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="res-time">Preferred Time <span class="req-star">*</span></label>
+                        <input type="time" id="res-time">
+                    </div>
+                    <div class="form-group full">
+                        <label for="res-seating">Seating Preference</label>
+                        <select id="res-seating">
+                            <option value="">— Select preference —</option>
+                            <option>Indoor — AC</option>
+                            <option>Outdoor — Garden View</option>
+                            <option>Private Booth</option>
+                            <option>Terrace Lounge</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 14px; margin-top: 30px; flex-wrap: wrap;">
+                    <!-- Req 15: Buttons with CSS transitions -->
+                    <button type="submit" class="btn btn-primary has-tooltip" data-tip="Submit your reservation"
+                        style="flex: 2;">
+                        <i class="fas fa-calendar-check"></i> Reserve Table
+                    </button>
+                    <button type="reset" class="btn btn-outline has-tooltip" data-tip="Reset all fields"
+                        style="flex: 1;">
+                        <i class="fas fa-rotate-left"></i> Reset
+                    </button>
+                </div>
+                <div id="form-feedback" style="margin-top: 16px;"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         Req 14 (Chefs section for showcase)
+    ============================================================ -->
+    <section id="chefs">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 44px;">
+                <h2 style="font-size: 2.2rem;">Meet Our Chefs</h2>
+                <div class="section-title-line" style="margin: 12px auto 0;"></div>
+            </div>
+            <div class="stat-grid">
+                <div class="stat-card zoom-in">
+                    <i class="fas fa-user-tie stat-icon"></i>
+                    <div style="font-family: var(--font-display); font-size: 1.2rem; margin-top: 4px;">Chef Ramesh</div>
+                    <p style="color: var(--text-muted); font-size: 0.83rem; margin-top: 8px;">Head Chef — 18 years expertise in South Indian Cuisine</p>
+                </div>
+                <div class="stat-card zoom-in">
+                    <i class="fas fa-user-tie stat-icon"></i>
+                    <div style="font-family: var(--font-display); font-size: 1.2rem; margin-top: 4px;">Chef Priya</div>
+                    <p style="color: var(--text-muted); font-size: 0.83rem; margin-top: 8px;">Pastry Chef — Specialises in Indian fusion desserts</p>
+                </div>
+                <div class="stat-card zoom-in">
+                    <i class="fas fa-user-tie stat-icon"></i>
+                    <div style="font-family: var(--font-display); font-size: 1.2rem; margin-top: 4px;">Chef Arjun</div>
+                    <p style="color: var(--text-muted); font-size: 0.83rem; margin-top: 8px;">Tandoor Specialist — Award winner at India Food Fest 2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" style="background: var(--surface); padding: 80px 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 44px;">
+                <h2 style="font-size: 2.2rem;">Customer Reviews</h2>
+                <div class="section-title-line" style="margin: 12px auto 0;"></div>
+            </div>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <i class="fas fa-quote-left" style="color: var(--accent); font-size: 1.5rem;"></i>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 14px; font-style: italic;">"Best Biryani in town! The ambience is fantastic and the staff are so welcoming."</p>
+                    <p style="margin-top: 14px; font-weight: 700; color: var(--accent); font-size: 0.85rem;">⭐⭐⭐⭐⭐ — Prashant K.</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-quote-left" style="color: var(--accent); font-size: 1.5rem;"></i>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 14px; font-style: italic;">"Had our anniversary dinner here. Private booth, perfect food, amazing night!"</p>
+                    <p style="margin-top: 14px; font-weight: 700; color: var(--accent); font-size: 0.85rem;">⭐⭐⭐⭐⭐ — Meena &amp; Ravi</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-quote-left" style="color: var(--accent); font-size: 1.5rem;"></i>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 14px; font-style: italic;">"Catering service for our corporate event was flawless. Highly recommended!"</p>
+                    <p style="margin-top: 14px; font-weight: 700; color: var(--accent); font-size: 0.85rem;">⭐⭐⭐⭐⭐ — Aditi S.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         Req 17: CONTACT SECTION
+    ============================================================ -->
+    <section id="contact">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 44px;">
+                <h2 style="font-size: 2.2rem;">Find Us</h2>
+                <div class="section-title-line" style="margin: 12px auto 0;"></div>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> 12 MG Road, Puducherry — 605001, Tamil Nadu, India</p>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210 | +91 44 2345 6789</p>
+                    <p><i class="fas fa-envelope"></i> reservations@spicegarden.in</p>
+                    <p><i class="fas fa-clock"></i> Open Daily: 11:00 AM – 11:00 PM</p>
+
+                    <div class="social-links" style="margin-top: 20px;">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="Google Maps"><i class="fab fa-google"></i></a>
+                    </div>
+                </div>
+
+                <!-- Req 17: Embedded Google Maps -->
+                <div class="map-embed">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31285.52!2d79.8083!3d11.9416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5361516e756ddf%3A0xd371b6e5c1735e31!2sPondicherry!5e0!3m2!1sen!2sin!4v1680000000000"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                        title="Restaurant Location Map">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         Req 18: FOOTER
+    ============================================================ -->
+    <footer>
+        <div class="container">
+            <div class="footer-row">
+                <div class="footer-brand">
+                    <div class="logo-text" style="margin-bottom: 6px;">
+                        <i class="fas fa-pepper-hot"></i> Spice Garden
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">
+                        Premium Indian Cuisine | Est. 2012
+                    </p>
+                </div>
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <hr style="border-color: var(--border); margin: 16px 0;">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 0.82rem; color: var(--text-muted);">
+                <span>&copy; 2026 Spice Garden Restaurant. All Rights Reserved.</span>
+                <span>Course: 23IT721 | Developed by <strong style="color: var(--primary);">Dharshini Krishnasamy</strong></span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Req 16: Scroll-to-Top Button -->
+    <button class="scroll-top" id="scroll-top" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ============================================================
+         JavaScript — Slider, Counters, Date, Theme, Validation, Nav
+    ============================================================ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // ---- Req 9: Dynamic Date & Time ----
+            function updateTime() {
+                const now = new Date();
+                const opts = { weekday:'short', year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12: true };
+                const str = now.toLocaleString('en-IN', opts);
+                document.querySelectorAll('#datetime-display').forEach(el => el.textContent = str);
+            }
+            updateTime(); setInterval(updateTime, 1000);
+
+            // ---- Req 10: Theme Switcher ----
+            const themeBtn = document.getElementById('theme-btn');
+            themeBtn?.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                const icon = themeBtn.querySelector('i');
+                icon.classList.toggle('fa-moon');
+                icon.classList.toggle('fa-sun');
+            });
+
+            // ---- Req 11: Notification Panel ----
+            const notifBtn = document.getElementById('notif-btn');
+            const notifPanel = document.getElementById('notif-panel');
+            notifBtn?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                notifPanel.classList.toggle('show');
+            });
+            document.addEventListener('click', () => notifPanel?.classList.remove('show'));
+
+            // ---- Req 2: Hamburger Nav ----
+            const menuBtn = document.getElementById('menu-toggle');
+            const navLinks = document.getElementById('nav-links');
+            menuBtn?.addEventListener('click', () => navLinks?.classList.toggle('show'));
+
+            // ---- Req 8: Auto Image Slider ----
+            const wrapper = document.getElementById('slider-wrapper');
+            const slides = wrapper?.querySelectorAll('.slide');
+            const dotsContainer = document.getElementById('slider-dots');
+            let cur = 0, timer;
+
+            if (slides && slides.length) {
+                slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.classList.add('slider-dot');
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => goTo(i));
+                    dotsContainer.appendChild(dot);
+                });
+
+                function goTo(n) {
+                    cur = (n + slides.length) % slides.length;
+                    wrapper.style.transform = `translateX(-${cur * 100}%)`;
+                    document.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+                }
+
+                document.getElementById('next-slide')?.addEventListener('click', () => { goTo(cur + 1); reset(); });
+                document.getElementById('prev-slide')?.addEventListener('click', () => { goTo(cur - 1); reset(); });
+
+                function reset() { clearInterval(timer); timer = setInterval(() => goTo(cur + 1), 4500); }
+                reset();
+            }
+
+            // ---- Req 5: Animated Counters ----
+            const counters = document.querySelectorAll('.animate-counter');
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const target = parseFloat(el.dataset.target);
+                        const isFloat = el.dataset.float === 'true';
+                        const suffix = el.dataset.suffix || '';
+                        let start = 0;
+                        const t0 = performance.now();
+
+                        function tick(t) {
+                            const p = Math.min((t - t0) / 2000, 1);
+                            const ease = 1 - Math.pow(1 - p, 3);
+                            const val = ease * target;
+                            el.textContent = (isFloat ? val.toFixed(1) : Math.floor(val).toLocaleString('en-IN')) + suffix;
+                            if (p < 1) requestAnimationFrame(tick);
+                        }
+                        requestAnimationFrame(tick);
+                        obs.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.4 });
+            counters.forEach(c => obs.observe(c));
+
+            // ---- Req 16: Scroll to Top ----
+            const scrollBtn = document.getElementById('scroll-top');
+            window.addEventListener('scroll', () => scrollBtn?.classList.toggle('show', window.scrollY > 400));
+            scrollBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            // ---- Active Nav Highlight ----
+            const sections = document.querySelectorAll('section[id]');
+            window.addEventListener('scroll', () => {
+                let cur = '';
+                sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+                document.querySelectorAll('.nav-links a').forEach(a => {
+                    a.classList.toggle('active', a.getAttribute('href') === `#${cur}`);
+                });
+            });
+
+            // ---- Req 12 & 13: Reservation Form Validation ----
+            const form = document.getElementById('res-form');
+            const rules = {
+                'res-name':   v => v.trim().length >= 2 && /^[A-Za-z\s]+$/.test(v) ? '' : 'Enter a valid name (letters only).',
+                'res-email':  v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? '' : 'Enter a valid email address.',
+                'res-phone':  v => /^[+]?[0-9\s\-]{10,15}$/.test(v) ? '' : 'Enter a valid phone number.',
+                'res-guests': v => v >= 1 && v <= 20 ? '' : 'Guests must be between 1 and 20.',
+                'res-date':   v => v ? '' : 'Please select a date.',
+                'res-time':   v => v ? '' : 'Please select a time.'
+            };
+
+            function setFieldState(id, errMsg) {
+                const el = document.getElementById(id);
+                const parent = el.parentNode;
+                el.classList.toggle('input-error', !!errMsg);
+                el.classList.toggle('input-success', !errMsg);
+                let fb = parent.querySelector('.error-msg');
+                if (errMsg) {
+                    if (!fb) { fb = document.createElement('span'); fb.classList.add('error-msg'); parent.appendChild(fb); }
+                    fb.innerHTML = `<i class="fas fa-circle-xmark"></i> ${errMsg}`;
+                } else if (fb) fb.remove();
+                return !errMsg;
+            }
+
+            Object.keys(rules).forEach(id => {
+                document.getElementById(id)?.addEventListener('blur', () => {
+                    setFieldState(id, rules[id](document.getElementById(id).value));
+                });
+            });
+
+            form?.addEventListener('submit', e => {
+                e.preventDefault();
+                const valid = Object.entries(rules).map(([id, fn]) =>
+                    setFieldState(id, fn(document.getElementById(id).value))
+                ).every(Boolean);
+
+                const fb = document.getElementById('form-feedback');
+                if (valid) {
+                    fb.innerHTML = `<div style="background:rgba(39,174,96,0.1); border-left:3px solid var(--success); padding:14px; border-radius:8px; color: var(--success); margin-top:10px;">
+                        <i class="fas fa-check-circle"></i> Reservation confirmed! We look forward to welcoming you. 🎉</div>`;
+                    form.reset();
+                    document.querySelectorAll('.input-success').forEach(el => el.classList.remove('input-success'));
+                } else {
+                    fb.innerHTML = `<div style="background:rgba(231,76,60,0.1); border-left:3px solid var(--error); padding:14px; border-radius:8px; color:var(--error); margin-top:10px;">
+                        <i class="fas fa-circle-xmark"></i> Please fix the errors above before submitting.</div>`;
+                }
+            });
+
+            form?.addEventListener('reset', () => {
+                document.querySelectorAll('.input-error, .input-success').forEach(el => {
+                    el.classList.remove('input-error', 'input-success');
+                });
+                document.querySelectorAll('.error-msg').forEach(el => el.remove());
+                document.getElementById('form-feedback').innerHTML = '';
+            });
+        });
+    </script>
+</body>
+</html>

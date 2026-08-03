@@ -1,0 +1,813 @@
+/*
+ * restaurant.css — External Stylesheet
+ * AI-Travel Dashboard Project | Assignment: Advanced CSS
+ * Author: Dharshini Krishnasamy
+ * Demonstrates: CSS Variables, Grid, Flexbox, Transitions, Animations,
+ *   Pseudo-elements, Transformations, Media Queries, Positioning, Tooltips,
+ *   Progress Bars, Image Hover Effects
+ */
+
+/* =====================================================
+   Req 21: CSS VARIABLES — :root custom properties
+===================================================== */
+:root {
+    --primary:       #c0392b;
+    --primary-dark:  #922b21;
+    --secondary:     #e67e22;
+    --accent:        #f1c40f;
+    --bg:            #1a0a00;
+    --surface:       #2c1003;
+    --surface-light: #3d1a08;
+    --text:          #fdf6f0;
+    --text-muted:    #c4a882;
+    --success:       #27ae60;
+    --warning:       #f39c12;
+    --error:         #e74c3c;
+    --border:        rgba(255,255,255,0.1);
+    --radius:        10px;
+    --radius-lg:     20px;
+    --shadow:        0 8px 30px rgba(0,0,0,0.5);
+    --nav-h:         75px;
+    --font-main:     'Inter', sans-serif;
+    --font-display:  'Playfair Display', serif;
+    --transition:    0.3s ease;
+}
+
+/* Light Mode */
+body.light-mode {
+    --bg:            #fff8f2;
+    --surface:       #ffffff;
+    --surface-light: #fef3e8;
+    --text:          #1a0a00;
+    --text-muted:    #7a5c3e;
+    --border:        rgba(0,0,0,0.1);
+}
+
+/* =====================================================
+   RESET & BASE
+===================================================== */
+*, *::before, *::after {
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+    transition: background var(--transition), color var(--transition);
+}
+
+h1, h2, h3, h4 { font-family: var(--font-display); }
+
+a { text-decoration: none; color: inherit; transition: color var(--transition); }
+
+img { max-width: 100%; display: block; }
+
+.container { width: 90%; max-width: 1200px; margin: 0 auto; }
+
+section { padding: 80px 0; }
+
+/* =====================================================
+   Req 30: CSS POSITIONING — header is fixed (fixed positioning)
+===================================================== */
+/* =====================================================
+   Req 2: NAVIGATION BAR — sticky, hover, active
+===================================================== */
+header {
+    position: fixed;            /* fixed positioning */
+    top: 0; left: 0; width: 100%;
+    height: var(--nav-h);
+    background: rgba(26,10,0,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    transition: background var(--transition);
+}
+
+body.light-mode header { background: rgba(255,248,242,0.95); }
+
+nav {
+    /* Req 23: FLEXBOX for navigation */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 5%;
+}
+
+.logo-text {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-text i { color: var(--accent); }
+
+/* Req 23: Flexbox for nav links */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 5px;
+    align-items: center;
+}
+
+.nav-links a {
+    padding: 8px 14px;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    position: relative;          /* relative positioning */
+    transition: color var(--transition), background var(--transition);
+}
+
+/* Req 27: CSS TRANSITIONS on nav links */
+.nav-links a:hover, .nav-links a.active {
+    color: var(--primary);
+    background: rgba(192,57,43,0.1);
+}
+
+/* Req 25: PSEUDO ELEMENT — active underline */
+.nav-links a.active::after {
+    content: '';
+    position: absolute;          /* absolute positioning */
+    bottom: 4px; left: 14px;
+    width: calc(100% - 28px);
+    height: 2px;
+    background: var(--primary);
+    border-radius: 2px;
+}
+
+/* Hamburger */
+.menu-toggle {
+    display: none;
+    font-size: 1.4rem;
+    background: transparent!important;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    transition: color var(--transition);
+}
+
+/* =====================================================
+   Req 3: WELCOME BANNER
+===================================================== */
+.hero {
+    min-height: 100vh;
+    /* Req 30: background is relative to viewport */
+    background:
+        linear-gradient(rgba(26,10,0,0.75), rgba(26,10,0,0.9)),
+        url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: var(--nav-h);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Req 14 & 25: ::before for decorative overlay gradient ring */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 450px; height: 450px;
+    background: radial-gradient(circle, rgba(192,57,43,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 4s ease-in-out infinite;
+}
+
+.hero-content { position: relative; z-index: 2; }
+
+/* Req 14 & 3: Fade-in animation on hero text */
+.hero-content h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: var(--text);
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeInDown 1s ease 0.3s forwards;
+}
+
+.hero-content h1 span { color: var(--primary); }
+
+.hero-tagline {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeInDown 1s ease 0.6s forwards;
+}
+
+.hero-offer {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 8px 22px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 16px 0 30px;
+    opacity: 0;
+    animation: fadeInUp 1s ease 0.9s forwards;
+}
+
+/* Req 9: Date-time widget */
+#datetime-display {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+    opacity: 0;
+    animation: fadeInUp 1s ease 1.2s forwards;
+}
+
+/* =====================================================
+   Req 4 & 22: DASHBOARD CARDS — CSS Grid layout
+===================================================== */
+.stat-grid {
+    display: grid;           /* CSS Grid */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+.stat-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    border: 1px solid var(--border);
+    text-align: center;
+    box-shadow: var(--shadow);
+    position: relative;      /* relative positioning */
+    overflow: hidden;
+    transition: transform var(--transition), border-color var(--transition);
+}
+
+/* Req 25: ::before decorative circle behind stat cards */
+.stat-card::before {
+    content: '';
+    position: absolute;      /* absolute positioning */
+    top: -20px; right: -20px;
+    width: 100px; height: 100px;
+    background: radial-gradient(circle, rgba(192,57,43,0.15), transparent 70%);
+    border-radius: 50%;
+}
+
+/* Req 26 & 27: CSS TRANSFORMATION + TRANSITION on hover */
+.stat-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--primary);
+}
+
+.stat-card .stat-icon {
+    font-size: 2.2rem;
+    color: var(--primary);
+    margin-bottom: 14px;
+    display: inline-block;
+    transition: transform 0.4s ease;
+}
+
+/* Req 26: rotate on hover */
+.stat-card:hover .stat-icon { transform: rotate(15deg) scale(1.2); }
+
+.stat-card .value {
+    font-size: 2.5rem;
+    font-family: var(--font-display);
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.stat-card h3 {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-family: var(--font-main);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 6px;
+}
+
+/* =====================================================
+   Req 6 & 7: FEATURES & SERVICES — Grid + Hover Effects
+===================================================== */
+.features-grid, .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+}
+
+.feature-card, .service-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 30px 24px;
+    border: 1px solid var(--border);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;      /* relative positioning */
+    overflow: hidden;
+}
+
+/* Req 25: ::after overlay on hover */
+.feature-card::after {
+    content: 'View Details';
+    position: absolute;      /* absolute positioning */
+    bottom: 0; left: 0; right: 0;
+    background: var(--primary);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 8px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover::after { transform: translateY(0); }
+
+/* Req 26: scale transform on hover */
+.feature-card:hover { transform: translateY(-10px) scale(1.03); border-color: var(--primary); }
+
+.feature-card i, .service-card i {
+    font-size: 2.5rem;
+    color: var(--secondary);
+    margin-bottom: 16px;
+    transition: transform 0.3s ease, color 0.3s;
+}
+
+.feature-card:hover i { transform: scale(1.3); color: var(--primary); }
+.service-card:hover   { transform: translateY(-6px); border-color: var(--secondary); box-shadow: var(--shadow); }
+.service-card:hover i { transform: rotate(-10deg) scale(1.15); color: var(--accent); }
+
+/* =====================================================
+   Req 8: IMAGE SLIDER
+===================================================== */
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+}
+
+.slider-wrapper {
+    display: flex;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+    position: relative;      /* relative positioning */
+}
+
+.slide img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: brightness(0.55);
+}
+
+/* Req 29: image zoom on hover */
+.slide img:hover { filter: brightness(0.7); transform: scale(1.04); transition: transform 0.5s ease; }
+
+.slide-caption {
+    position: absolute;      /* absolute positioning */
+    bottom: 40px; left: 10%;
+    color: white;
+}
+
+.slide-caption h3 { font-size: 1.8rem; margin-bottom: 8px; }
+.slide-caption p  { font-size: 1rem; opacity: 0.85; }
+
+.slider-btn {
+    position: absolute;     /* absolute positioning */
+    top: 50%; transform: translateY(-50%);
+    background: rgba(26,10,0,0.65);
+    color: white;
+    border: none;
+    width: 48px; height: 48px;
+    border-radius: 50%; cursor: pointer;
+    font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: background var(--transition), transform var(--transition);
+    z-index: 10;
+}
+
+.slider-btn:hover { background: var(--primary); transform: translateY(-50%) scale(1.1); }
+
+#prev-slide { left: 20px; }
+#next-slide { right: 20px; }
+
+.slider-dots {
+    position: absolute;      /* absolute positioning */
+    bottom: 18px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 8px; z-index: 10;
+}
+
+.slider-dot {
+    width: 10px; height: 10px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 50%; cursor: pointer;
+    transition: background var(--transition), width var(--transition);
+}
+
+.slider-dot.active { background: var(--primary); width: 22px; border-radius: 6px; }
+
+/* =====================================================
+   Req 12 & 13: RESERVATION FORM
+===================================================== */
+.res-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 44px;
+    box-shadow: var(--shadow);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: 1 / -1; }
+
+label { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+
+.req-star { color: var(--error); }
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+select {
+    padding: 11px 15px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: var(--font-main);
+    font-size: 0.92rem;
+    outline: none;
+    /* Req 27: CSS transition on inputs */
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+input:focus, select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(192,57,43,0.18);
+}
+
+.input-error   { border-color: var(--error)!important; }
+.input-success { border-color: var(--success)!important; }
+
+.error-msg {
+    color: var(--error);
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Req 15: ACTION BUTTONS with CSS transitions */
+.btn {
+    padding: 12px 26px;
+    border-radius: var(--radius);
+    font-weight: 700;
+    font-size: 0.92rem;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;       /* relative positioning */
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+/* Req 25: ::before ripple effect on buttons */
+.btn::before {
+    content: '';
+    position: absolute;      /* absolute positioning */
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+}
+
+.btn:hover::before { width: 250px; height: 250px; }
+
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(192,57,43,0.4); }
+
+.btn-secondary { background: var(--secondary); color: white; }
+.btn-secondary:hover { background: #d35400; transform: translateY(-2px); }
+
+.btn-outline { background: transparent; border: 2px solid var(--text-muted); color: var(--text-muted); }
+.btn-outline:hover { border-color: var(--error); color: var(--error); }
+
+/* Req 32: CSS TOOLTIPS — no JS */
+.has-tooltip { position: relative; }
+
+.has-tooltip::after {
+    content: attr(data-tip);
+    position: absolute;      /* absolute positioning */
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) scale(0.85);
+    background: #0a0a0a;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 999;
+}
+
+.has-tooltip:hover::after { opacity: 1; transform: translateX(-50%) scale(1); }
+
+/* =====================================================
+   Req 31: CSS PROGRESS BARS
+===================================================== */
+.progress-title { font-size: 0.85rem; font-weight: 600; display: flex; justify-content: space-between; margin-bottom: 6px; }
+
+.progress-bar {
+    height: 10px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    width: 0;
+    animation: growBar 1.6s ease forwards;
+}
+
+/* Req 26: CSS TRANSFORMATIONS — skew on section dividers */
+.section-title-line {
+    width: 60px; height: 4px;
+    background: var(--primary);
+    margin-top: 12px;
+    transform: skewX(-15deg);     /* skew transform */
+    border-radius: 2px;
+}
+
+/* =====================================================
+   Req 17: CONTACT SECTION
+===================================================== */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.contact-info p {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--text-muted);
+    margin-bottom: 22px;
+    font-size: 0.95rem;
+}
+
+.contact-info p i { color: var(--primary); font-size: 1.2rem; width: 20px; }
+
+.map-embed {
+    border-radius: var(--radius);
+    overflow: hidden;
+    height: 250px;
+    border: 1px solid var(--border);
+}
+
+.map-embed iframe { width: 100%; height: 100%; border: none; filter: grayscale(40%); }
+
+/* =====================================================
+   Req 28: FONT AWESOME ICONS with hover animations
+===================================================== */
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; height: 40px;
+    background: var(--surface-light);
+    color: var(--text-muted);
+    border-radius: 50%;
+    font-size: 1.1rem;
+    margin-right: 10px;
+    transition: all var(--transition);
+}
+
+/* Req 26: scale + rotate on social icons */
+.social-links a:hover { background: var(--primary); color: white; transform: rotate(360deg) scale(1.15); }
+
+/* =====================================================
+   Req 18: FOOTER
+===================================================== */
+footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 40px 0 20px;
+    text-align: center;
+}
+
+.footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+/* Req 25: ::first-letter — decorative footer paragraph */
+.footer-brand p::first-letter {
+    font-size: 1.4em;
+    color: var(--primary);
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+
+/* =====================================================
+   Req 16: SCROLL-TO-TOP
+===================================================== */
+.scroll-top {
+    position: fixed;         /* fixed positioning */
+    bottom: 30px; right: 30px;
+    width: 46px; height: 46px;
+    background: var(--primary);
+    color: white;
+    border: none; border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    /* Req 26: translateY transform */
+    transform: translateY(20px);
+    transition: all var(--transition);
+    z-index: 999;
+}
+
+.scroll-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.scroll-top:hover { background: var(--primary-dark); transform: translateY(-4px); }
+
+/* =====================================================
+   Req 10: THEME SWITCHER BUTTON
+===================================================== */
+.theme-btn, .notif-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: color var(--transition), background var(--transition), transform var(--transition);
+}
+
+.theme-btn:hover { color: var(--accent); transform: rotate(30deg); }
+.notif-btn:hover { color: var(--primary); }
+
+/* =====================================================
+   Req 11: NOTIFICATION PANEL
+===================================================== */
+.notif-wrapper { position: relative; }
+
+.notif-panel {
+    position: absolute;      /* absolute positioning */
+    top: calc(100% + 12px); right: 0;
+    width: 300px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    opacity: 0; visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition);
+    z-index: 2000;
+}
+
+.notif-panel.show { opacity: 1; visibility: visible; transform: translateY(0); }
+
+.notif-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-weight: 700;
+}
+
+.notif-list { list-style: none; max-height: 250px; overflow-y: auto; }
+
+.notif-list li {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: background var(--transition);
+}
+
+.notif-list li:hover { background: var(--surface-light); color: var(--text); }
+.notif-badge {
+    position: absolute;
+    top: 2px; right: 2px;
+    background: var(--error);
+    color: white;
+    font-size: 0.6rem; font-weight: 700;
+    min-width: 16px; height: 16px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* =====================================================
+   Req 14: ANIMATION KEYFRAMES
+===================================================== */
+
+/* 1. Fade-In Down */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 2. Fade-In Up */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 3. Bounce */
+@keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    40%      { transform: translateY(-16px); }
+    60%      { transform: translateY(-8px); }
+}
+
+.bounce { animation: bounce 1.2s ease infinite; }
+
+/* 4. Pulse */
+@keyframes pulse {
+    0%,100% { transform: scale(1); opacity: 0.7; }
+    50%      { transform: scale(1.08); opacity: 1; }
+}
+
+/* 5. Zoom-In */
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+.zoom-in { animation: zoomIn 0.7s ease forwards; }
+
+/* 6. Typing cursor effect */
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+.typing-cursor::after { content: '|'; animation: blink 0.85s step-end infinite; color: var(--primary); }
+
+/* 7. Progress bar grow */
+@keyframes growBar {
+    from { width: 0; }
+    to   { width: var(--target-w, 75%); }
+}
+
+/* =====================================================
+   Req 24: MEDIA QUERIES — responsive for desktop, tablet, mobile
+===================================================== */
+@media (max-width: 1024px) {
+    .contact-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: var(--nav-h); left: 0; right: 0; background: var(--bg); padding: 20px; border-bottom: 1px solid var(--border); gap: 0; }
+    .nav-links.show { display: flex; }
+    .nav-links a { display: block; padding: 12px 20px; }
+    .menu-toggle { display: block; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-group.full { grid-column: 1; }
+    .footer-row { flex-direction: column; text-align: center; }
+    .hero-content h1 { font-size: 2.2rem; }
+    .slider-container { height: 280px; }
+}
+
+@media (max-width: 480px) {
+    section { padding: 50px 0; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .btn { padding: 10px 18px; font-size: 0.85rem; }
+}
