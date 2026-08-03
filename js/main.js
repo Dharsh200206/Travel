@@ -304,8 +304,6 @@ document.addEventListener('DOMContentLoaded', () => {
             name: document.getElementById('reg-name'),
             email: document.getElementById('reg-email'),
             phone: document.getElementById('reg-phone'),
-            pass: document.getElementById('reg-pass'),
-            gender: document.getElementById('reg-gender'),
             dob: document.getElementById('dob'),
             address: document.getElementById('address')
         };
@@ -314,6 +312,8 @@ document.addEventListener('DOMContentLoaded', () => {
             name: (val) => {
                 if (!val.trim()) return 'Name is required.';
                 if (val.trim().length < 3) return 'Name must be at least 3 characters long.';
+                const nameRegex = /^[A-Za-z\s]+$/;
+                if (!nameRegex.test(val)) return 'Name can only contain letters and spaces.';
                 return '';
             },
             email: (val) => {
@@ -324,18 +324,13 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             phone: (val) => {
                 if (!val.trim()) return 'Phone number is required.';
-                // Match Indian phone format: 10 digits, optionally starting with +91 or 91
-                const phoneRegex = /^(?:\+?91|0)?[6-9]\d{9}$/;
-                if (!phoneRegex.test(val.replace(/\s+/g, ''))) return 'Please enter a valid 10-digit Indian phone number.';
+                const phoneRegex = /^[+]?[0-9\s\-]{10,15}$/;
+                if (!phoneRegex.test(val)) return 'Please enter a valid phone number (10-15 digits).';
                 return '';
             },
-            pass: (val) => {
-                if (!val) return 'Password is required.';
-                if (val.length < 6) return 'Password must be at least 6 characters.';
-                return '';
-            },
-            gender: (val) => {
-                if (!val) return 'Please select your gender.';
+            gender: () => {
+                const checked = document.querySelector('input[name="gender"]:checked');
+                if (!checked) return 'Please select your gender.';
                 return '';
             },
             dob: (val) => {
@@ -346,8 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return '';
             },
             address: (val) => {
-                if (!val.trim()) return 'Address is required.';
-                return '';
+                return ''; // Address is optional
             }
         };
 
@@ -375,6 +369,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isValid = validateField(key);
                 if (!isValid) isFormValid = false;
             });
+            
+            // Validate Gender separately since it isn't a standard 'field' by ID
+            const genderErrorMsg = validations.gender();
+            const genderContainer = document.querySelector('.radio-group');
+            if (genderErrorMsg && genderContainer) {
+                isFormValid = false;
+                const existingFeedback = genderContainer.parentNode.querySelector('.error-feedback');
+                if (!existingFeedback) {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'error-feedback';
+                    errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${genderErrorMsg}`;
+                    genderContainer.parentNode.appendChild(errorDiv);
+                }
+            } else if (genderContainer) {
+                const existingFeedback = genderContainer.parentNode.querySelector('.error-feedback');
+                if (existingFeedback) {
+                    existingFeedback.remove();
+                }
+            }
 
             if (isFormValid) {
                 // Success notification banner simulation

@@ -233,6 +233,8 @@
                     name="name"
                     required
                     placeholder="e.g. Dharshini"
+                    pattern="[A-Za-z\s]+"
+                    title="Name must only contain letters and spaces"
                     minlength="3"
                     autocomplete="name"
                 >
@@ -370,6 +372,7 @@
                     id="editable-comments"
                     contenteditable="true"
                     spellcheck="true"
+                    lang="en"
                     role="textbox"
                     aria-multiline="true"
                     aria-label="Editable comments area with spell check enabled"
